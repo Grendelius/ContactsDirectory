@@ -51,12 +51,8 @@ public class MainApp extends Application {
      */
     public void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/RootLayout.fxml"));
-            rootLayout = loader.load();
-
-            //Отображение сцены, содержащую корневой макет
-            Scene scene = new Scene(rootLayout);
-            primaryStage.setScene(scene);
+            rootLayout = FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
+            primaryStage.setScene(new Scene(rootLayout));
             primaryStage.show();
         } catch (IOException e) {
             e.getStackTrace();
