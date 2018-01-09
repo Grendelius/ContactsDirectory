@@ -7,6 +7,7 @@ public class PersonContact {
     private StringProperty firstName;
     private StringProperty lastName;
     private StringProperty phoneNumber;
+    private StringProperty personEmail;
     private StringProperty fullName;
 
     public PersonContact() {
@@ -17,6 +18,7 @@ public class PersonContact {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty("+79198378413");
+        this.personEmail = new SimpleStringProperty("testwergmail.com");
         this.fullName = new SimpleStringProperty(firstName.concat("\n").concat(lastName));
     }
 
@@ -54,6 +56,18 @@ public class PersonContact {
 
     public StringProperty phoneNumberProperty() {
         return phoneNumber;
+    }
+
+    public String getPersonEmail() {
+        return personEmail.get();
+    }
+
+    public void setPersonEmail(String personEmail) {
+        this.personEmail.set(personEmail);
+    }
+
+    public StringProperty personEmailProperty() {
+        return personEmail;
     }
 
     public String getFullName() {

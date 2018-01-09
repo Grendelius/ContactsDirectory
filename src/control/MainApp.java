@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApp extends Application {
-
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
@@ -49,7 +48,7 @@ public class MainApp extends Application {
     /**
      * Инициализация корневого макета
      */
-    public void initRootLayout() {
+    private void initRootLayout() {
         try {
             rootLayout = FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
             primaryStage.setScene(new Scene(rootLayout));
@@ -62,7 +61,7 @@ public class MainApp extends Application {
     /**
      * Показ в корневом макете информации о контактах
      */
-    public void showPersonOverview() {
+    private void showPersonOverview() {
         try {
             // Загрузка сведений о контактах
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactOverview.fxml"));

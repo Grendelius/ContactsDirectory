@@ -37,6 +37,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
                                 <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1"/>
@@ -44,9 +45,12 @@
                                        GridPane.rowIndex="1"/>
                                 <Label fx:id="telephoneLabel" text="Label" GridPane.columnIndex="1"
                                        GridPane.rowIndex="2"/>
-                                <Label text="Фамилия"/>
-                                <Label text="Имя" GridPane.rowIndex="1"/>
-                                <Label text="Номер телефона" GridPane.rowIndex="2"/>
+                                <Label fx:id="personEmailLabel" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="3"/>
+                                <Label text="Фамилия:"/>
+                                <Label text="Имя:" GridPane.rowIndex="1"/>
+                                <Label text="Номер телефона:" GridPane.rowIndex="2"/>
+                                <Label text="E-mail адрес:" GridPane.rowIndex="3"/>
                             </children>
                         </GridPane>
                         <ButtonBar layoutX="209.0" layoutY="250.0" prefHeight="40.0" prefWidth="200.0"
@@ -54,7 +58,7 @@
                             <buttons>
                                 <Button mnemonicParsing="false" text="New..."/>
                                 <Button mnemonicParsing="false" text="Edit..."/>
-                                <Button mnemonicParsing="false" text="Delete..."/>
+                                <Button mnemonicParsing="false" onAction="#handleDeleteContact" text="Delete..."/>
                             </buttons>
                         </ButtonBar>
                     </children>
