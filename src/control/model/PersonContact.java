@@ -18,7 +18,7 @@ public class PersonContact {
         this.firstName = new SimpleStringProperty(firstName);
         this.lastName = new SimpleStringProperty(lastName);
         this.phoneNumber = new SimpleStringProperty("+79198378413");
-        this.personEmail = new SimpleStringProperty("testwergmail.com");
+        this.personEmail = new SimpleStringProperty("test@gmail.com");
         this.fullName = new SimpleStringProperty(firstName.concat("\n").concat(lastName));
     }
 

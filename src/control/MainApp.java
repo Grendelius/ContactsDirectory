@@ -42,7 +42,7 @@ public class MainApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Directory of Contacts");
         initRootLayout();
-        showPersonOverview();
+        showPersonContactOverview();
     }
 
     /**
@@ -61,7 +61,7 @@ public class MainApp extends Application {
     /**
      * Показ в корневом макете информации о контактах
      */
-    private void showPersonOverview() {
+    private void showPersonContactOverview() {
         try {
             // Загрузка сведений о контактах
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactOverview.fxml"));
