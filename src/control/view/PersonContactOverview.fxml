@@ -16,7 +16,7 @@
                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="fioColumn" prefWidth="87.0" text="ФИО"/>
-                                <TableColumn fx:id="telColumn" prefWidth="87.0" text="НОМЕР"/>
+                                <TableColumn fx:id="telColumn" prefWidth="87.0" sortType="DESCENDING" text="НОМЕР"/>
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
@@ -40,8 +40,8 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                             </rowConstraints>
                             <children>
-                                <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1"/>
-                                <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1"
+                                <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1"/>
+                                <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1"
                                        GridPane.rowIndex="1"/>
                                 <Label fx:id="telephoneLabel" text="Label" GridPane.columnIndex="1"
                                        GridPane.rowIndex="2"/>
@@ -56,8 +56,8 @@
                         <ButtonBar layoutX="209.0" layoutY="250.0" prefHeight="40.0" prefWidth="200.0"
                                    AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
                             <buttons>
-                                <Button mnemonicParsing="false" text="New..."/>
-                                <Button mnemonicParsing="false" text="Edit..."/>
+                                <Button mnemonicParsing="false" onAction="#handleNewPersonContact" text="New..."/>
+                                <Button mnemonicParsing="false" onAction="#handleEditPersonContact" text="Edit..."/>
                                 <Button mnemonicParsing="false" onAction="#handleDeleteContact" text="Delete..."/>
                             </buttons>
                         </ButtonBar>

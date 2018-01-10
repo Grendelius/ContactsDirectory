@@ -4,22 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class PersonContact {
-    private StringProperty firstName;
-    private StringProperty lastName;
-    private StringProperty phoneNumber;
-    private StringProperty personEmail;
-    private StringProperty fullName;
+    private StringProperty firstName = new SimpleStringProperty();
+    private StringProperty lastName = new SimpleStringProperty();
+    private StringProperty phoneNumber = new SimpleStringProperty();
+    private StringProperty personEmail = new SimpleStringProperty();
 
     public PersonContact() {
-        this(null, null);
-    }
-
-    public PersonContact(String firstName, String lastName) {
-        this.firstName = new SimpleStringProperty(firstName);
-        this.lastName = new SimpleStringProperty(lastName);
-        this.phoneNumber = new SimpleStringProperty("+79198378413");
-        this.personEmail = new SimpleStringProperty("test@gmail.com");
-        this.fullName = new SimpleStringProperty(firstName.concat("\n").concat(lastName));
     }
 
     public String getFirstName() {
@@ -70,12 +60,8 @@ public class PersonContact {
         return personEmail;
     }
 
-    public String getFullName() {
-        return fullName.get();
-    }
-
     public StringProperty fullNameProperty() {
-        return fullName;
+        return new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
     }
 
 }

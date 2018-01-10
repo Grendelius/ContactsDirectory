@@ -1,6 +1,7 @@
 package control;
 
 import control.model.PersonContact;
+import control.view.PersonContactEditController;
 import control.view.PersonContactOverviewController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -9,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,7 +21,6 @@ public class MainApp extends Application {
     private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
 
     public MainApp() {
-        contactData.add(new PersonContact("Andrei", "Tolkachev"));
     }
 
     public static void main(String[] args) {
@@ -64,7 +65,7 @@ public class MainApp extends Application {
     private void showPersonContactOverview() {
         try {
             // Загрузка сведений о контактах
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactOverview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactOverview.fxml"));
             AnchorPane contactOverview = loader.load();
 
             // Размещение сведений о контактах в центр корневого макета BorderPane.
@@ -77,6 +78,34 @@ public class MainApp extends Application {
             e.getStackTrace();
         }
 
+    }
+
+    public boolean showPersonContactEditDialog(PersonContact contact) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            // Создание главное сцены для диалогового окна и присваивание её к корневому макету BorderPane
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Редактирование контакта");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(page));
+
+            // Связывание класса - контроллера с созданной dialogStage для диалогового окна
+            PersonContactEditController controller = loader.getController();
+            controller.setPrimaryStage(dialogStage);
+            controller.setPersonContact(contact);
+
+            // Отображение окна (по-умолчанию) до его закрытия(состояния переменной OkClicked)
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException exc) {
+            exc.printStackTrace();
+            return false;
+        }
     }
 
     /**

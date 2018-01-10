@@ -27,6 +27,7 @@ public class PersonContactOverviewController {
     private Label personEmailLabel;
 
     // Ссылка на главное приложение
+    // связывает логику работы элементов GridPane с главной сценой Stage внутри MainApp
     private MainApp mainApp;
 
     @FXML
@@ -80,6 +81,38 @@ public class PersonContactOverviewController {
             alert.setTitle("Внимание!");
             alert.setHeaderText("Отсутствует контакт для выбора");
             alert.setContentText("Пожалуйста выберите контакт в таблице");
+
+            alert.showAndWait();
+        }
+    }
+
+    /**
+     * Создание нового контакта по нажатию кнопки New
+     */
+    @FXML
+    private void handleNewPersonContact() {
+        PersonContact tempContact = new PersonContact();
+        boolean isOkClicked = mainApp.showPersonContactEditDialog(tempContact);
+
+        if (isOkClicked) {
+            mainApp.getContactData().add(tempContact);
+        }
+    }
+
+    @FXML
+    private void handleEditPersonContact() {
+        PersonContact selectedContact = personContactTable.getSelectionModel().getSelectedItem();
+        if (selectedContact != null) {
+            boolean isOkClicked = mainApp.showPersonContactEditDialog(selectedContact);
+            if (isOkClicked) {
+                showPersonContactDetails(selectedContact);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Внимание!");
+            alert.setHeaderText("Нет выбранных контактов");
+            alert.setContentText("Пожалуйста выберите контакт из таблицы");
 
             alert.showAndWait();
         }
