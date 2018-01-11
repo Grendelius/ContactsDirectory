@@ -32,7 +32,7 @@ public class PersonContactEditController {
     /**
      * Установка связи класса - контроллера со Stage для диалогового макета из MainApp
      *
-     * @param stage
+     * @param stage - Stage в MainApp классе
      */
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
@@ -42,7 +42,7 @@ public class PersonContactEditController {
     /**
      * Указывает контакт, данные для которого должны быть изменены
      *
-     * @param personContact
+     * @param personContact - выбранный контакт новый/для реактирования
      */
     public void setPersonContact(PersonContact personContact) {
         this.personContact = personContact;
@@ -87,7 +87,7 @@ public class PersonContactEditController {
     /**
      * Валидация ввода данных в редактируемые поля
      *
-     * @return
+     * @return boolean;
      */
     private boolean isValid() {
         String errMsg = "";

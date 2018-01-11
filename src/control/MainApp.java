@@ -1,6 +1,7 @@
 package control;
 
 import control.model.PersonContact;
+import control.model.PersonContactGroup;
 import control.view.PersonContactEditController;
 import control.view.PersonContactOverviewController;
 import javafx.application.Application;
@@ -19,8 +20,23 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
+    private ObservableList<PersonContactGroup> groupData = FXCollections.observableArrayList();
 
     public MainApp() {
+        PersonContactGroup group1 = new PersonContactGroup("Тест");
+        PersonContact pers1 = new PersonContact();
+        pers1.setPersonEmail("asd@mail.ru");
+        pers1.setPhoneNumber("asasd");
+        pers1.setLastName("sec");
+        pers1.setFirstName("first");
+        contactData.add(pers1);
+        group1.getPersonContactList().add(pers1);
+        pers1.getGroup().add(group1);
+        System.out.println(group1.getPersonContactList().size());
+        groupData.add(group1);
+        groupData.add(new PersonContactGroup("Друзья"));
+        groupData.add(new PersonContactGroup("Семья"));
+        groupData.add(new PersonContactGroup("Работа"));
     }
 
     public static void main(String[] args) {
@@ -30,10 +46,14 @@ public class MainApp extends Application {
     /**
      * Возвращает данные о контактах в виде наблюдаемого списка
      *
-     * @return
+     * @return ObservableList<PersonContact></>
      */
     public ObservableList<PersonContact> getContactData() {
         return contactData;
+    }
+
+    public ObservableList<PersonContactGroup> getGroupData() {
+        return groupData;
     }
 
     //TODO Реализовать перехват исключений в initRootLayout(кастомными)
@@ -80,6 +100,12 @@ public class MainApp extends Application {
 
     }
 
+    /**
+     * Вызов окна редактирования/создания контакта
+     *
+     * @param contact - объект контакта новый/имеющийся
+     * @return boolean - isOkClicked
+     */
     public boolean showPersonContactEditDialog(PersonContact contact) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactEditDialog.fxml"));
@@ -111,7 +137,7 @@ public class MainApp extends Application {
     /**
      * Возвращает главную сцену
      *
-     * @return
+     * @return primaryStage;
      */
     public Stage getPrimaryStage() {
         return primaryStage;

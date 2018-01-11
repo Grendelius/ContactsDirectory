@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="300.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/9.0.1" fx:controller="control.view.PersonContactOverviewController">
     <children>
@@ -26,7 +27,11 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="364.0">
                     <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Информация о контакте"/>
+                        <Label layoutX="14.0" layoutY="14.0" text="Информация о контакте">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
                         <GridPane layoutX="5.0" layoutY="104.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
                                   AnchorPane.topAnchor="100.0">
                             <columnConstraints>
@@ -53,14 +58,16 @@
                                 <Label text="E-mail адрес:" GridPane.rowIndex="3"/>
                             </children>
                         </GridPane>
-                        <ButtonBar layoutX="209.0" layoutY="250.0" prefHeight="40.0" prefWidth="200.0"
-                                   AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0">
+                        <ButtonBar layoutX="-7.0" layoutY="258.0" prefHeight="40.0" prefWidth="200.0"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="159.0">
                             <buttons>
                                 <Button mnemonicParsing="false" onAction="#handleNewPersonContact" text="New..."/>
                                 <Button mnemonicParsing="false" onAction="#handleEditPersonContact" text="Edit..."/>
                                 <Button mnemonicParsing="false" onAction="#handleDeleteContact" text="Delete..."/>
                             </buttons>
                         </ButtonBar>
+                        <ComboBox fx:id="groupBox" layoutX="228.0" layoutY="10.0" prefHeight="25.0" prefWidth="175.0"
+                                  promptText="Фильтрация по группам" visibleRowCount="5"/>
                     </children>
                 </AnchorPane>
             </items>

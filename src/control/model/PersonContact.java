@@ -3,11 +3,15 @@ package control.model;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class PersonContact {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
     private StringProperty phoneNumber = new SimpleStringProperty();
     private StringProperty personEmail = new SimpleStringProperty();
+    private Set<PersonContactGroup> group = new HashSet<>();
 
     public PersonContact() {
     }
@@ -63,5 +67,15 @@ public class PersonContact {
     public StringProperty fullNameProperty() {
         return new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
     }
+
+    public Set<PersonContactGroup> getGroup() {
+        return group;
+    }
+
+    public void setGroup(Set<PersonContactGroup> group) {
+        this.group = group;
+    }
+
+
 
 }

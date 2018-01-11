@@ -3,11 +3,11 @@ package control.view;
 import control.MainApp;
 import control.model.EmailUtil;
 import control.model.PersonContact;
+import control.model.PersonContactGroup;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class PersonContactOverviewController {
     @FXML
@@ -16,6 +16,8 @@ public class PersonContactOverviewController {
     private TableColumn<PersonContact, String> fioColumn;
     @FXML
     private TableColumn<PersonContact, String> telColumn;
+    @FXML
+    private ComboBox<PersonContactGroup> groupBox;
 
     @FXML
     private Label firstNameLabel;
@@ -30,11 +32,24 @@ public class PersonContactOverviewController {
     // связывает логику работы элементов GridPane с главной сценой Stage внутри MainApp
     private MainApp mainApp;
 
+    private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
+        return new ListCell<>() {
+            @Override
+            protected void updateItem(PersonContactGroup item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(item != null && !empty ? item.toString() : null);
+            }
+        };
+    }
+
     @FXML
     private void initialize() {
         // Инициализация таблицы контактов с двумя столбцами.
         fioColumn.setCellValueFactory(cellData -> cellData.getValue().fullNameProperty());
         telColumn.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
+
+        // Инициализация выпадающего списка
+        groupBox.setCellFactory(PersonContactOverviewController::call);
 
         // Очистка информации о контакте.
         showPersonContactDetails(null);
@@ -43,6 +58,11 @@ public class PersonContactOverviewController {
         // отображаем дополнительную информацию о контакте.
         personContactTable.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showPersonContactDetails(newValue)));
+
+        // Следим за выбором, и при изменении
+        // отображаем  список контактов в таблице контактов
+        groupBox.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showPersonContactsOfSelectedGroup(newValue));
     }
 
     private void showPersonContactDetails(PersonContact contact) {
@@ -61,9 +81,25 @@ public class PersonContactOverviewController {
         }
     }
 
+    /**
+     * Показ списка контактов выбранной группы
+     *
+     * @param contactGroup - группа контактов, выбранная из списка
+     */
+    private void showPersonContactsOfSelectedGroup(PersonContactGroup contactGroup) {
+        if (contactGroup != null) {
+            ObservableList<PersonContact> groupContactsList =
+                    FXCollections.observableArrayList(contactGroup.getPersonContactList());
+            if (mainApp.getContactData().containsAll(groupContactsList)) {
+                personContactTable.setItems(groupContactsList);
+            } else personContactTable.setItems(mainApp.getContactData());
+        }
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         personContactTable.setItems(mainApp.getContactData());
+        groupBox.setItems(mainApp.getGroupData());
     }
 
     /**
@@ -117,7 +153,6 @@ public class PersonContactOverviewController {
             alert.showAndWait();
         }
     }
-
 
 
 }
