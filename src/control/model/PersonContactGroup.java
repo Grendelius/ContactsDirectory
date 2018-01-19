@@ -10,6 +10,9 @@ public class PersonContactGroup {
     private StringProperty groupLabel = new SimpleStringProperty();
     private List<PersonContact> personContactList = new ArrayList<>();
 
+    public PersonContactGroup() {
+    }
+
     public PersonContactGroup(String name) {
         groupLabel.setValue(name);
     }

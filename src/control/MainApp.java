@@ -2,8 +2,10 @@ package control;
 
 import control.model.PersonContact;
 import control.model.PersonContactGroup;
+import control.view.ContactsGroupAddDialogController;
 import control.view.PersonContactEditController;
 import control.view.PersonContactOverviewController;
+import control.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +57,7 @@ public class MainApp extends Application {
     }
 
     public ObservableList<PersonContactGroup> getGroupData() {
-        return groupData.sorted();
+        return groupData;
     }
 
     //TODO Реализовать перехват исключений в initRootLayout(кастомными)
@@ -63,7 +65,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Directory of Contacts");
+        this.primaryStage.setTitle("Справочник контактов");
         initRootLayout();
         showPersonContactOverview();
     }
@@ -73,8 +75,13 @@ public class MainApp extends Application {
      */
     private void initRootLayout() {
         try {
-            rootLayout = FXMLLoader.load(getClass().getResource("view/RootLayout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/RootLayout.fxml"));
+            rootLayout = loader.load();
             primaryStage.setScene(new Scene(rootLayout));
+
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+
             primaryStage.show();
         } catch (IOException e) {
             e.getStackTrace();
@@ -106,7 +113,7 @@ public class MainApp extends Application {
      * Вызов окна редактирования/создания контакта
      *
      * @param contact - объект контакта новый/имеющийся
-     * @return boolean - isOkClicked
+     * @return boolean значение нажатия кнопки Ok(isOkClicked)
      */
     public boolean showPersonContactEditDialog(PersonContact contact) {
         try {
@@ -130,6 +137,37 @@ public class MainApp extends Application {
 
             return controller.isOkClicked();
 
+        } catch (IOException exc) {
+            exc.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Вызов окна добавления/создания новой группы контактов
+     *
+     * @param contactGroup - экземпляр класса PersonContactGroup
+     * @return boolean значение нажатия кнопки Add(isAddClicked)
+     */
+    public boolean showContactsGroupAddDialog(PersonContactGroup contactGroup) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactsGroupAddDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Добавление группы контактов");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(page));
+
+            ContactsGroupAddDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setPrimaryStage(dialogStage);
+            controller.setPersonContactGroup(contactGroup);
+
+            dialogStage.showAndWait();
+
+            return controller.isAddClicked();
         } catch (IOException exc) {
             exc.printStackTrace();
             return false;

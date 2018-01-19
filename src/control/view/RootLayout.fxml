@@ -14,8 +14,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Create">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New contact"/>
-                        <MenuItem mnemonicParsing="false" text="New group"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleCreateNewContact" text="New contact"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleCreateContactsGroup" text="New group"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

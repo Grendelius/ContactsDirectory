@@ -9,6 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.Comparator;
+
 public class PersonContactOverviewController {
     @FXML
     private TableView<PersonContact> personContactTable;
@@ -99,10 +101,15 @@ public class PersonContactOverviewController {
         }
     }
 
+    /**
+     * Вызов главного приложения
+     *
+     * @param mainApp - объект класса MainApp
+     */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        personContactTable.setItems(mainApp.getContactData());
-        groupBox.setItems(mainApp.getGroupData());
+        personContactTable.setItems(mainApp.getContactData().sorted(Comparator.comparing(Object::toString)));
+        groupBox.setItems(mainApp.getGroupData().sorted());
     }
 
     /**
@@ -138,6 +145,9 @@ public class PersonContactOverviewController {
         }
     }
 
+    /**
+     * Редактирование выбранного контакта по нажатию кнопки Edit
+     */
     @FXML
     private void handleEditPersonContact() {
         PersonContact selectedContact = personContactTable.getSelectionModel().getSelectedItem();
