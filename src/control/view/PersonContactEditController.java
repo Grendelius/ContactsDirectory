@@ -109,7 +109,7 @@ public class PersonContactEditController {
 
         } else {
             if (!(EmailUtil.validate(emailField.getText()))) {
-                errMsg += "Некорретный формат e-mail адреса.\n Используйте формат: name@domain.com\n";
+                errMsg += "Некорретный формат e-mail адреса.\nИспользуйте формат: name@domain.com\n";
             }
         }
 

@@ -90,9 +90,12 @@ public class PersonContactOverviewController {
         if (contactGroup != null) {
             ObservableList<PersonContact> groupContactsList =
                     FXCollections.observableArrayList(contactGroup.getPersonContactList());
+
             if (mainApp.getContactData().containsAll(groupContactsList)) {
                 personContactTable.setItems(groupContactsList);
-            } else personContactTable.setItems(mainApp.getContactData());
+            }
+            if (contactGroup.getGroupLabel().equalsIgnoreCase("Все"))
+                personContactTable.setItems(mainApp.getContactData());
         }
     }
 

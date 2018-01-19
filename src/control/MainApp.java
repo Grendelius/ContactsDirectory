@@ -23,20 +23,22 @@ public class MainApp extends Application {
     private ObservableList<PersonContactGroup> groupData = FXCollections.observableArrayList();
 
     public MainApp() {
-        PersonContactGroup group1 = new PersonContactGroup("Тест");
-        PersonContact pers1 = new PersonContact();
-        pers1.setPersonEmail("asd@mail.ru");
-        pers1.setPhoneNumber("asasd");
-        pers1.setLastName("sec");
-        pers1.setFirstName("first");
-        contactData.add(pers1);
-        group1.getPersonContactList().add(pers1);
-        pers1.getGroup().add(group1);
-        System.out.println(group1.getPersonContactList().size());
-        groupData.add(group1);
         groupData.add(new PersonContactGroup("Друзья"));
         groupData.add(new PersonContactGroup("Семья"));
         groupData.add(new PersonContactGroup("Работа"));
+        groupData.add(new PersonContactGroup("Все"));
+        PersonContact p = new PersonContact("Ivanov", "Ivan", "02", "email@mail.ru");
+        PersonContact p1 = new PersonContact("Alexov", "Alex", "03", "email1@mail.ru");
+        PersonContact p2 = new PersonContact("Alekhan", "Serg", "04", "email1@mail.ru");
+        PersonContactGroup pgroup = new PersonContactGroup("Тест");
+        PersonContactGroup pgroup2 = new PersonContactGroup("Тест2");
+        contactData.add(p);
+        contactData.add(p1);
+        contactData.add(p2);
+        groupData.add(pgroup);
+        groupData.add(pgroup2);
+        pgroup.getPersonContactList().add(p);
+        pgroup2.getPersonContactList().add(p1);
     }
 
     public static void main(String[] args) {
@@ -46,14 +48,14 @@ public class MainApp extends Application {
     /**
      * Возвращает данные о контактах в виде наблюдаемого списка
      *
-     * @return ObservableList<PersonContact></>
+     * @return - лист с объектами контактов "contactData"
      */
     public ObservableList<PersonContact> getContactData() {
         return contactData;
     }
 
     public ObservableList<PersonContactGroup> getGroupData() {
-        return groupData;
+        return groupData.sorted();
     }
 
     //TODO Реализовать перехват исключений в initRootLayout(кастомными)
@@ -111,7 +113,7 @@ public class MainApp extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactEditDialog.fxml"));
             AnchorPane page = loader.load();
 
-            // Создание главное сцены для диалогового окна и присваивание её к корневому макету BorderPane
+            // Создание главной сцены для диалогового окна и присваивание её к корневому макету BorderPane
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Редактирование контакта");
             dialogStage.initModality(Modality.WINDOW_MODAL);

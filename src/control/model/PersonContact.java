@@ -9,11 +9,19 @@ import java.util.Set;
 public class PersonContact {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
+    private StringProperty fullName;
     private StringProperty phoneNumber = new SimpleStringProperty();
     private StringProperty personEmail = new SimpleStringProperty();
     private Set<PersonContactGroup> group = new HashSet<>();
 
     public PersonContact() {
+    }
+
+    public PersonContact(String fname, String lname, String phone, String email) {
+        this.firstName = new SimpleStringProperty(fname);
+        this.lastName = new SimpleStringProperty(lname);
+        this.phoneNumber = new SimpleStringProperty(phone);
+        this.personEmail = new SimpleStringProperty(email);
     }
 
     public String getFirstName() {
@@ -64,8 +72,12 @@ public class PersonContact {
         return personEmail;
     }
 
+    public String getFullName() {
+        return fullName.get();
+    }
+
     public StringProperty fullNameProperty() {
-        return new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
+        return fullName = new SimpleStringProperty(getFirstName().concat("\n").concat(getLastName()));
     }
 
     public Set<PersonContactGroup> getGroup() {
@@ -75,7 +87,6 @@ public class PersonContact {
     public void setGroup(Set<PersonContactGroup> group) {
         this.group = group;
     }
-
 
 
 }
