@@ -1,12 +1,13 @@
-package control.view;
+package contacts.view;
 
-import control.MainApp;
-import control.model.PersonContactGroup;
+import contacts.MainApp;
+import contacts.model.PersonContactGroup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+@SuppressWarnings("EqualsBetweenInconvertibleTypes")
 public class ContactsGroupAddDialogController {
     private Stage dialogStage;
     private MainApp mainApp;
@@ -15,6 +16,22 @@ public class ContactsGroupAddDialogController {
 
     @FXML
     private TextField groupName;
+
+    /**
+     * Ограничивает количество введеных символов в указанное поле
+     * в соответствии с заданной длинной текста
+     *
+     * @param tf        - текстовое поле
+     * @param maxLength - показатель максимальной длины
+     */
+    private static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            }
+        });
+    }
 
     @FXML
     private void initialize() {
@@ -67,32 +84,28 @@ public class ContactsGroupAddDialogController {
         dialogStage.close();
     }
 
-
     private boolean isValid() {
-        String msgError = "";
+        String errMsg = "";
         String input = groupName.getText();
 
         if (groupName.getText() == null || groupName.getLength() == 0) {
-            msgError += "Наименование группы не может быть пустым\n";
-        } else {
-            if (!groupName.equals(mainApp.getGroupData().filtered(contactGroup ->
-                    contactGroup.getGroupLabel().equalsIgnoreCase(groupName.getText())))) {
-                msgError += "Группа с наименованием " + "\"" + input + "\"" + " уже есть в списке групп\n";
-            }
+            errMsg += "Наименование группы не может быть пустым\n";
+        } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
+                contactsGroup.getGroupLabel().equalsIgnoreCase(groupName.getText()))) {
+            errMsg += "Группа с наименованием " + "\"" + input + "\"" + " уже есть в списке групп\n";
         }
-        if (msgError.length() == 0) {
+
+        if (errMsg.length() == 0) {
             return true;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
             alert.setTitle("Некорректные данные");
             alert.setHeaderText("Обратите внимание на следующее:");
-            alert.setContentText(msgError);
+            alert.setContentText(errMsg);
 
             alert.showAndWait();
             return false;
         }
-
-
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="200.0" minWidth="400.0" prefHeight="250.0" prefWidth="400.0"
-            xmlns="http://javafx.com/javafx/9.0.1" fx:controller="control.view.ContactsGroupAddDialogController">
+            xmlns="http://javafx.com/javafx/9.0.1" fx:controller="contacts.view.ContactsGroupAddDialogController">
     <children>
         <GridPane layoutX="30.0" layoutY="100.0" minHeight="25.0" minWidth="300.0" prefHeight="25.0" prefWidth="340.0">
             <columnConstraints>
@@ -17,7 +17,7 @@
             </rowConstraints>
             <children>
                 <Label text="Наименование группы:"/>
-                <TextField fx:id="groupName" GridPane.columnIndex="1"/>
+                <TextField fx:id="groupName" promptText="15 символов" GridPane.columnIndex="1"/>
             </children>
         </GridPane>
         <Button layoutX="153.0" layoutY="151.0" mnemonicParsing="false" onAction="#handleAdd" text="Add the group"/>

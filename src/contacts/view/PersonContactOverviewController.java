@@ -1,9 +1,9 @@
-package control.view;
+package contacts.view;
 
-import control.MainApp;
-import control.model.EmailUtil;
-import control.model.PersonContact;
-import control.model.PersonContactGroup;
+import contacts.MainApp;
+import contacts.model.EmailUtil;
+import contacts.model.PersonContact;
+import contacts.model.PersonContactGroup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -59,12 +59,12 @@ public class PersonContactOverviewController {
         // Следим за выбором, и при изменении
         // отображаем дополнительную информацию о контакте.
         personContactTable.getSelectionModel().selectedItemProperty().addListener(
-                ((observable, oldValue, newValue) -> showPersonContactDetails(newValue)));
+                ((ov, oldValue, newValue) -> showPersonContactDetails(newValue)));
 
         // Следим за выбором, и при изменении
         // отображаем  список контактов в таблице контактов
         groupBox.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showPersonContactsOfSelectedGroup(newValue));
+                (ov, oldValue, newValue) -> showPersonContactsOfSelectedGroup(newValue));
     }
 
     private void showPersonContactDetails(PersonContact contact) {

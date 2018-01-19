@@ -1,7 +1,7 @@
-package control.view;
+package contacts.view;
 
-import control.model.EmailUtil;
-import control.model.PersonContact;
+import contacts.model.EmailUtil;
+import contacts.model.PersonContact;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -25,6 +25,22 @@ public class PersonContactEditController {
     @FXML
     private TextField emailField;
 
+    /**
+     * Ограничивает количество введеных символов в указанное поле
+     * в соответствии с заданной длинной текста
+     *
+     * @param tf        - текстовое поле
+     * @param maxLength - показатель максимальной длины
+     */
+    private static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            }
+        });
+    }
+
     @FXML
     private void initialize() {
     }
@@ -37,7 +53,6 @@ public class PersonContactEditController {
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
     }
-
 
     /**
      * Указывает контакт, данные для которого должны быть изменены
@@ -83,7 +98,6 @@ public class PersonContactEditController {
         dialogStage.close();
     }
 
-
     /**
      * Валидация ввода данных в редактируемые поля
      *
@@ -92,21 +106,17 @@ public class PersonContactEditController {
     private boolean isValid() {
         String errMsg = "";
 
-        if (firstNameField.getText() == null || firstNameField.getLength() == 0) {
+        if (firstNameField.getText() == null || firstNameField.getLength() == 0)
             errMsg += "Некоректно введено имя контакта\n";
-        }
 
-        if (lastNameField.getText() == null || lastNameField.getLength() == 0) {
+        if (lastNameField.getText() == null || lastNameField.getLength() == 0)
             errMsg += "Некоретно введена фамилия контакта\n";
-        }
 
-        if (telNumField.getText() == null || telNumField.getLength() == 0) {
+        if (telNumField.getText() == null || telNumField.getLength() == 0)
             errMsg += "Некорретно введен номер телефона\n";
-        }
 
         if (emailField.getText() == null || emailField.getLength() == 0) {
             errMsg += "Поле e-mail не должно быть пустым";
-
         } else {
             if (!(EmailUtil.validate(emailField.getText()))) {
                 errMsg += "Некорретный формат e-mail адреса.\nИспользуйте формат: name@domain.com\n";

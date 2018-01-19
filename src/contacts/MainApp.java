@@ -1,11 +1,11 @@
-package control;
+package contacts;
 
-import control.model.PersonContact;
-import control.model.PersonContactGroup;
-import control.view.ContactsGroupAddDialogController;
-import control.view.PersonContactEditController;
-import control.view.PersonContactOverviewController;
-import control.view.RootLayoutController;
+import contacts.model.PersonContact;
+import contacts.model.PersonContactGroup;
+import contacts.view.ContactsGroupAddDialogController;
+import contacts.view.PersonContactEditController;
+import contacts.view.PersonContactOverviewController;
+import contacts.view.RootLayoutController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

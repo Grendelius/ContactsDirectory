@@ -1,8 +1,8 @@
-package control.view;
+package contacts.view;
 
-import control.MainApp;
-import control.model.PersonContact;
-import control.model.PersonContactGroup;
+import contacts.MainApp;
+import contacts.model.PersonContact;
+import contacts.model.PersonContactGroup;
 import javafx.fxml.FXML;
 
 public class RootLayoutController {

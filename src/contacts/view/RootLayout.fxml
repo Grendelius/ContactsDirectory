@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/9.0.1" fx:controller="contacts.view.RootLayoutController">
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Файл">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Close"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Действия">
+                    <items>
+                        <Menu mnemonicParsing="false" text="Контакты">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#handleCreateNewContact"
+                                          text="Новый контакт"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Группы контактов">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#handleCreateContactsGroup"
+                                          text="Новая группа"/>
+                            </items>
+                        </Menu>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Помощь">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>
