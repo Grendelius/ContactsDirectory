@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 
-//TODO Реализовать логику изменения названия группы
+//TODO Подкорректировать логику изменения наименования контакта, пересмотреть слушатель событий для выпадающего списка
 
 public class ContactsGroupEditDialogController {
     @FXML
@@ -73,10 +73,12 @@ public class ContactsGroupEditDialogController {
         dialogStage.close();
     }
 
-    private String selectContactsGroup() {
+    /**
+     * Записывает индекс выбранной группы из общего списка
+     */
+    private void selectContactsGroup() {
         contactsGroup = groupBox.getSelectionModel().getSelectedItem();
         groupIndex = mainApp.getGroupData().indexOf(contactsGroup);
-        return contactsGroup.getGroupLabel();
     }
 
     private boolean isValid() {
