@@ -24,6 +24,8 @@
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#handleCreateContactsGroup"
                                           text="Новая группа"/>
+                                <MenuItem mnemonicParsing="false" onAction="#handleEditContactsGroups"
+                                          text="Управление группами"/>
                             </items>
                         </Menu>
                     </items>

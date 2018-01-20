@@ -19,7 +19,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Создание и добавление новой группы контактов
+     * Открывает окно создания группы контактов
      */
     @FXML
     private void handleCreateContactsGroup() {
@@ -32,7 +32,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Создание и добавление нового контакта
+     * Открывает окно создания нового контакта
      */
     @FXML
     private void handleCreateNewContact() {
@@ -42,6 +42,14 @@ public class RootLayoutController {
         if (isOkClicked) {
             mainApp.getContactData().add(tempContact);
         }
+    }
+
+    /**
+     * Открывает окно управления группами контактов
+     */
+    @FXML
+    private void handleEditContactsGroups() {
+        mainApp.showContactsGroupEditDialog();
     }
 
     /**

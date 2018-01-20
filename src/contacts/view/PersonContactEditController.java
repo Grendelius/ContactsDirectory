@@ -12,10 +12,6 @@ import javafx.stage.Stage;
  * Диалоговое окно для изменения информации о контакте
  */
 public class PersonContactEditController {
-    private Stage dialogStage;
-    private PersonContact personContact;
-    private boolean OkClicked;
-
     @FXML
     private TextField firstNameField;
     @FXML
@@ -24,6 +20,10 @@ public class PersonContactEditController {
     private TextField telNumField;
     @FXML
     private TextField emailField;
+
+    private Stage dialogStage;
+    private PersonContact personContact;
+    private boolean OkClicked;
 
     /**
      * Ограничивает количество введеных символов в указанное поле
@@ -43,6 +43,8 @@ public class PersonContactEditController {
 
     @FXML
     private void initialize() {
+        addTextLimiter(firstNameField, 20);
+        addTextLimiter(lastNameField, 25);
     }
 
     /**

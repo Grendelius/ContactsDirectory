@@ -2,10 +2,7 @@ package contacts;
 
 import contacts.model.PersonContact;
 import contacts.model.PersonContactGroup;
-import contacts.view.ContactsGroupAddDialogController;
-import contacts.view.PersonContactEditController;
-import contacts.view.PersonContactOverviewController;
-import contacts.view.RootLayoutController;
+import contacts.view.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -146,10 +143,10 @@ public class MainApp extends Application {
     /**
      * Вызов окна добавления/создания новой группы контактов
      *
-     * @param contactGroup - экземпляр класса PersonContactGroup
+     * @param contactsGroup - экземпляр класса PersonContactGroup
      * @return boolean значение нажатия кнопки Add(isAddClicked)
      */
-    public boolean showContactsGroupAddDialog(PersonContactGroup contactGroup) {
+    public boolean showContactsGroupAddDialog(PersonContactGroup contactsGroup) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactsGroupAddDialog.fxml"));
             AnchorPane page = loader.load();
@@ -163,7 +160,7 @@ public class MainApp extends Application {
             ContactsGroupAddDialogController controller = loader.getController();
             controller.setMainApp(this);
             controller.setPrimaryStage(dialogStage);
-            controller.setPersonContactGroup(contactGroup);
+            controller.setPersonContactGroup(contactsGroup);
 
             dialogStage.showAndWait();
 
@@ -171,6 +168,31 @@ public class MainApp extends Application {
         } catch (IOException exc) {
             exc.printStackTrace();
             return false;
+        }
+    }
+
+    /**
+     * Редатирование групп контактов
+     */
+    public void showContactsGroupEditDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactsGroupEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Управление группами контактов");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(page));
+
+            ContactsGroupEditDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setPrimaryStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException exc) {
+            exc.printStackTrace();
         }
     }
 

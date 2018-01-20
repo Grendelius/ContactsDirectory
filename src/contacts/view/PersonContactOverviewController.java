@@ -67,6 +67,11 @@ public class PersonContactOverviewController {
                 (ov, oldValue, newValue) -> showPersonContactsOfSelectedGroup(newValue));
     }
 
+    /**
+     * Показывает расширенную информацию о выбранном контакте
+     *
+     * @param contact - экземпляр класса PersonContact
+     */
     private void showPersonContactDetails(PersonContact contact) {
         // Заполняем лэйбы значениями полей экземпляром PersonContact
         // показ расширенной информации о контакте

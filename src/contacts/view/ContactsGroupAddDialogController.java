@@ -7,15 +7,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-@SuppressWarnings("EqualsBetweenInconvertibleTypes")
 public class ContactsGroupAddDialogController {
+    @FXML
+    private TextField groupName;
+
     private Stage dialogStage;
     private MainApp mainApp;
     private PersonContactGroup personContactGroup;
     private boolean addClicked;
-
-    @FXML
-    private TextField groupName;
 
     /**
      * Ограничивает количество введеных символов в указанное поле
@@ -35,6 +34,7 @@ public class ContactsGroupAddDialogController {
 
     @FXML
     private void initialize() {
+        addTextLimiter(groupName, 25);
     }
 
     /**
