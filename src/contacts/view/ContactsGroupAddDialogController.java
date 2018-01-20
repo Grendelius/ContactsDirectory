@@ -69,7 +69,7 @@ public class ContactsGroupAddDialogController {
     @FXML
     public void handleAdd() {
         if (isValid()) {
-            personContactGroup.setGroupLabel(groupName.getText());
+            personContactGroup.setGroupLabel(groupName.getText().trim());
 
             addClicked = true;
             dialogStage.close();
@@ -86,13 +86,13 @@ public class ContactsGroupAddDialogController {
 
     private boolean isValid() {
         String errMsg = "";
-        String input = groupName.getText();
+        String inputedText = groupName.getText();
 
-        if (groupName.getText() == null || groupName.getLength() == 0) {
+        if (inputedText == null || inputedText.length() == 0) {
             errMsg += "Наименование группы не может быть пустым\n";
         } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
                 contactsGroup.getGroupLabel().equalsIgnoreCase(groupName.getText()))) {
-            errMsg += "Группа с наименованием " + "\"" + input + "\"" + " уже есть в списке групп\n";
+            errMsg += "Группа с наименованием " + "\"" + inputedText + "\"" + " уже есть в списке групп\n";
         }
 
         if (errMsg.length() == 0) {

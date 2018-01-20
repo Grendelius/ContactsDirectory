@@ -10,7 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 
-//TODO Реализовать логику изменения названия группы, логику удаления группы из общего списка
+//TODO Реализовать логику изменения названия группы
 
 public class ContactsGroupEditDialogController {
     @FXML
@@ -19,6 +19,7 @@ public class ContactsGroupEditDialogController {
     private Stage dialogStage;
     private MainApp mainApp;
     private PersonContactGroup contactsGroup;
+    private int groupIndex = 0;
 
     private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
         return new ListCell<>() {
@@ -33,30 +34,35 @@ public class ContactsGroupEditDialogController {
     @FXML
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
-        groupBox.getEditor().focusedProperty().asObject().addListener((observable, oldValue, newValue) ->
+        groupBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
                 selectContactsGroup());
     }
 
+    /**
+     * Изменяет наименование группы контактов
+     */
     @FXML
-    private void renameGroup() {
-        String groupName = groupBox.getEditor().getText();
-
+    private void handleRenameGroup() {
+        String inputedText = groupBox.getEditor().getText();
         if (isValid()) {
-            mainApp.getGroupData().get(selectContactsGroup()).setGroupLabel(groupName);
+            mainApp.getGroupData().get(groupIndex).setGroupLabel(inputedText);
         }
 
     }
 
+    /**
+     * Удаляет группу контактов из общего списка групп
+     */
     @FXML
     private void handleDeleteGroup() {
-        if (selectContactsGroup() >= 0) {
-            mainApp.getGroupData().remove(selectContactsGroup());
+        if (groupIndex >= 0) {
+            mainApp.getGroupData().remove(groupIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
             alert.setTitle("Внимание!");
             alert.setHeaderText("Отсутствует группа контактов для выбора");
-            alert.setContentText("Пожалуйста выберите группу контактов");
+            alert.setContentText("Пожалуйста выберите или создайте группу контактов");
 
             alert.showAndWait();
         }
@@ -67,27 +73,20 @@ public class ContactsGroupEditDialogController {
         dialogStage.close();
     }
 
-    private int selectContactsGroup() {
+    private String selectContactsGroup() {
         contactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        int index = 0;
-        if (mainApp.getGroupData().contains(contactsGroup)) {
-            index = mainApp.getGroupData().indexOf(contactsGroup);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Внимание!");
-            alert.setHeaderText("Отсутствует группа контактов для выбора");
-            alert.setContentText("Пожалуйста выберите группу контактов");
-
-            alert.showAndWait();
-        }
-        return index;
+        groupIndex = mainApp.getGroupData().indexOf(contactsGroup);
+        return contactsGroup.getGroupLabel();
     }
 
     private boolean isValid() {
         String errMsg = "";
-        if (groupBox.getEditor().getText().isEmpty()) {
+        String inputedText = groupBox.getEditor().getText();
+        if (inputedText.length() == 0) {
             errMsg += "Наименование группы не может быть пустым";
+        } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
+                contactsGroup.getGroupLabel().equalsIgnoreCase(inputedText))) {
+            errMsg += "Группа с наименованием " + "\"" + inputedText + "\"" + " уже есть в списке групп\n";
         }
 
         if (errMsg.length() == 0) {

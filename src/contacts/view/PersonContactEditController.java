@@ -82,10 +82,10 @@ public class PersonContactEditController {
     @FXML
     private void handleOk() {
         if (isValid()) {
-            personContact.setFirstName(firstNameField.getText());
-            personContact.setLastName(lastNameField.getText());
-            personContact.setPhoneNumber(telNumField.getText());
-            personContact.setPersonEmail(emailField.getText());
+            personContact.setFirstName(firstNameField.getText().trim());
+            personContact.setLastName(lastNameField.getText().trim());
+            personContact.setPhoneNumber(telNumField.getText().trim());
+            personContact.setPersonEmail(emailField.getText().trim());
 
             OkClicked = true;
             dialogStage.close();
