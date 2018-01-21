@@ -34,6 +34,12 @@ public class PersonContactOverviewController {
     // связывает логику работы элементов GridPane с главной сценой Stage внутри MainApp
     private MainApp mainApp;
 
+    /**
+     * Заполняет выпадающий список названиями групп контактов
+     *
+     * @param param - визуальный список ячеек групп контактов
+     * @return новая ячейка - наименование группы контактов
+     */
     private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
         return new ListCell<>() {
             @Override

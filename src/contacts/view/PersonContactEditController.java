@@ -25,26 +25,24 @@ public class PersonContactEditController {
     private PersonContact personContact;
     private boolean OkClicked;
 
-    /**
-     * Ограничивает количество введеных символов в указанное поле
-     * в соответствии с заданной длинной текста
-     *
-     * @param tf        - текстовое поле
-     * @param maxLength - показатель максимальной длины
-     */
-    private static void addTextLimiter(final TextField tf, final int maxLength) {
-        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (tf.getText().length() > maxLength) {
-                String s = tf.getText().substring(0, maxLength);
-                tf.setText(s);
-            }
-        });
-    }
+//    /**
+//     * Ограничивает количество введеных символов в указанное поле
+//     * в соответствии с заданной длинной текста
+//     *
+//     * @param tf        - текстовое поле
+//     * @param maxLength - показатель максимальной длины
+//     */
+////    private static void addTextLimiter(final TextField tf, final int maxLength) {
+////        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+////            if (tf.getText().length() > maxLength) {
+////                String s = tf.getText().substring(0, maxLength);
+////                tf.setText(s);
+////            }
+////        });
+////    }
 
     @FXML
     private void initialize() {
-        addTextLimiter(firstNameField, 20);
-        addTextLimiter(lastNameField, 25);
     }
 
     /**

@@ -22,7 +22,7 @@ public class PersonContactGroup {
     }
 
     public void setGroupLabel(String groupLabel) {
-        this.groupLabel.set(groupLabel);
+        this.groupLabel.setValue(groupLabel);
     }
 
     public StringProperty groupLabelProperty() {

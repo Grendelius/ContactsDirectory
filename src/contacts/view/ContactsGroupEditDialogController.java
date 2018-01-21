@@ -10,17 +10,19 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 
-//TODO Подкорректировать логику изменения наименования контакта, пересмотреть слушатель событий для выпадающего списка
-
 public class ContactsGroupEditDialogController {
     @FXML
     private ComboBox<PersonContactGroup> groupBox;
-
     private Stage dialogStage;
     private MainApp mainApp;
-    private PersonContactGroup contactsGroup;
     private int groupIndex = 0;
 
+    /**
+     * Заполняет выпадающий список названиями групп контактов
+     *
+     * @param param - визуальный список ячеек групп контактов
+     * @return новая ячейка - наименование группы контактов
+     */
     private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
         return new ListCell<>() {
             @Override
@@ -34,12 +36,11 @@ public class ContactsGroupEditDialogController {
     @FXML
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
-        groupBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                selectContactsGroup());
+        groupBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> selectContactsGroup());
     }
 
     /**
-     * Изменяет наименование группы контактов
+     * Изменяет наименование выбранной группы контактов
      */
     @FXML
     private void handleRenameGroup() {
@@ -77,14 +78,14 @@ public class ContactsGroupEditDialogController {
      * Записывает индекс выбранной группы из общего списка
      */
     private void selectContactsGroup() {
-        contactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        groupIndex = mainApp.getGroupData().indexOf(contactsGroup);
+        PersonContactGroup personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
+        groupIndex = mainApp.getGroupData().indexOf(personContactsGroup);
     }
 
     private boolean isValid() {
         String errMsg = "";
         String inputedText = groupBox.getEditor().getText();
-        if (inputedText.length() == 0) {
+        if (inputedText == null || inputedText.length() == 0) {
             errMsg += "Наименование группы не может быть пустым";
         } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
                 contactsGroup.getGroupLabel().equalsIgnoreCase(inputedText))) {

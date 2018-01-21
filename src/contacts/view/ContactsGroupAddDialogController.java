@@ -34,6 +34,7 @@ public class ContactsGroupAddDialogController {
 
     @FXML
     private void initialize() {
+        // Ограничение на длину вводимой строки для поля ввода
         addTextLimiter(groupName, 25);
     }
 
