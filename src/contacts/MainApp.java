@@ -22,10 +22,10 @@ public class MainApp extends Application {
     private ObservableList<PersonContactGroup> groupData = FXCollections.observableArrayList();
 
     public MainApp() {
+        groupData.add(0, new PersonContactGroup("Все"));
         groupData.add(new PersonContactGroup("Друзья"));
         groupData.add(new PersonContactGroup("Семья"));
         groupData.add(new PersonContactGroup("Работа"));
-        groupData.add(new PersonContactGroup("Все"));
         PersonContact p = new PersonContact("Ivanov", "Ivan", "02", "email@mail.ru");
         PersonContact p1 = new PersonContact("Alexov", "Alex", "03", "email1@mail.ru");
         PersonContact p2 = new PersonContact("Alekhan", "Serg", "04", "email1@mail.ru");

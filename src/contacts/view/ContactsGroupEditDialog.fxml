@@ -10,8 +10,8 @@
         <Button layoutX="170.0" layoutY="142.0" mnemonicParsing="false" onAction="#handleClose" text="Close"/>
         <ButtonBar layoutX="164.0" layoutY="19.0" prefHeight="40.0" prefWidth="200.0">
             <buttons>
-                <Button mnemonicParsing="false" onAction="#handleRenameGroup" text="Save"/>
-                <Button mnemonicParsing="false" onAction="#handleDeleteGroup" text="Delete"/>
+                <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#handleRenameGroup" text="Save"/>
+                <Button fx:id="deleteBtn" mnemonicParsing="false" onAction="#handleDeleteGroup" text="Delete"/>
             </buttons>
         </ButtonBar>
     </children>

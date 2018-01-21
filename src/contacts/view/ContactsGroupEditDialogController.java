@@ -2,20 +2,26 @@ package contacts.view;
 
 import contacts.MainApp;
 import contacts.model.PersonContactGroup;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 
 public class ContactsGroupEditDialogController {
     @FXML
     private ComboBox<PersonContactGroup> groupBox;
+    @FXML
+    private Button deleteBtn;
+    @FXML
+    private Button saveBtn;
+
     private Stage dialogStage;
     private MainApp mainApp;
-    private int groupIndex = 0;
+    private PersonContactGroup personContactsGroup;
+    private IntegerProperty groupIndex = new SimpleIntegerProperty();
 
     /**
      * Заполняет выпадающий список названиями групп контактов
@@ -37,6 +43,8 @@ public class ContactsGroupEditDialogController {
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
         groupBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> selectContactsGroup());
+        saveBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
+        deleteBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
     }
 
     /**
@@ -46,7 +54,7 @@ public class ContactsGroupEditDialogController {
     private void handleRenameGroup() {
         String inputedText = groupBox.getEditor().getText();
         if (isValid()) {
-            mainApp.getGroupData().get(groupIndex).setGroupLabel(inputedText);
+            mainApp.getGroupData().get(groupIndex.getValue()).setGroupLabel(inputedText);
         }
 
     }
@@ -56,7 +64,7 @@ public class ContactsGroupEditDialogController {
      */
     @FXML
     private void handleDeleteGroup() {
-        if (groupIndex >= 0) {
+        if (groupIndex.getValue() > 0) {
             mainApp.getGroupData().remove(groupIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -78,8 +86,9 @@ public class ContactsGroupEditDialogController {
      * Записывает индекс выбранной группы из общего списка
      */
     private void selectContactsGroup() {
-        PersonContactGroup personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        groupIndex = mainApp.getGroupData().indexOf(personContactsGroup);
+        personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
+        int index = mainApp.getGroupData().indexOf(personContactsGroup);
+        groupIndex.setValue(index);
     }
 
     private boolean isValid() {
