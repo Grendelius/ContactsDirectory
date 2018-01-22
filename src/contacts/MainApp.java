@@ -197,6 +197,36 @@ public class MainApp extends Application {
     }
 
     /**
+     * Показывает окно выбора группы для добавления контакта
+     *
+     * @return - индекс выбранной группы
+     */
+    public int showContactsToGroupAddingDialog() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/AddPersonContactToGroupDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Добавление контакта в группу контактов");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            dialogStage.setScene(new Scene(page));
+
+            AddPersonContactToGroupDialogController controller = loader.getController();
+            controller.setMainApp(this);
+            controller.setPrimaryStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+            return controller.getGroupIndex();
+
+        } catch (IOException exc) {
+            exc.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * Возвращает главную сцену
      *
      * @return primaryStage;

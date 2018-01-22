@@ -22,9 +22,9 @@ public class PersonContactOverviewController {
     private ComboBox<PersonContactsGroup> groupBox;
 
     @FXML
-    private Label firstNameLabel;
-    @FXML
     private Label lastNameLabel;
+    @FXML
+    private Label firstNameLabel;
     @FXML
     private Label telephoneLabel;
     @FXML
@@ -105,10 +105,10 @@ public class PersonContactOverviewController {
                     FXCollections.observableArrayList(contactGroup.getPersonContactsList());
 
             if (mainApp.getContactData().containsAll(groupContactsList)) {
-                personContactTable.setItems(groupContactsList);
+                personContactTable.setItems(groupContactsList.sorted(Comparator.comparing(Object::toString)));
             }
             if (contactGroup.getGroupLabel().equalsIgnoreCase("Все"))
-                personContactTable.setItems(mainApp.getContactData());
+                personContactTable.setItems(mainApp.getContactData().sorted(Comparator.comparing(Object::toString)));
         }
     }
 
@@ -178,5 +178,17 @@ public class PersonContactOverviewController {
         }
     }
 
+    /**
+     * Добавляет выбранный контакт к указанной группе из окна выбора групп
+     */
+    @FXML
+    private void handleAddToGroup() {
+        PersonContact selectedContact = personContactTable.getSelectionModel().getSelectedItem();
+        int selectedGroup = mainApp.showContactsToGroupAddingDialog();
+
+        if (selectedGroup > 0) {
+            mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact);
+        }
+    }
 
 }

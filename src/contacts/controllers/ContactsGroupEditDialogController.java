@@ -45,7 +45,7 @@ public class ContactsGroupEditDialogController {
 
         // Следим за выбором
         // получаем индекс выбранной группы из общего списка
-        groupBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> selectContactsGroup());
+        groupBox.getEditor().textProperty().addListener((ov, oldValue, newValue) -> selectContactsGroup());
 
         // Отключаем кнопки при пустом выборе или выборе группы контактов "Все"
         saveBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
@@ -57,12 +57,12 @@ public class ContactsGroupEditDialogController {
      */
     @FXML
     private void handleRenameGroup() {
-        int index = groupIndex.getValue();
+        int selectedIndex = groupIndex.getValue();
         String inputedText = groupBox.getEditor().getText();
-        if (isValid()) {
-            mainApp.getGroupData().get(index).setGroupLabel(inputedText);
-        }
 
+        if (isValid()) {
+            mainApp.getGroupData().get(selectedIndex).setGroupLabel(inputedText);
+        }
     }
 
     /**
@@ -70,9 +70,10 @@ public class ContactsGroupEditDialogController {
      */
     @FXML
     private void handleDeleteGroup() {
-        int index = groupIndex.getValue();
-        if (index > 0) {
-            mainApp.getGroupData().remove(index);
+        int selectedIndex = groupIndex.getValue();
+
+        if (selectedIndex > 0) {
+            mainApp.getGroupData().remove(selectedIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
@@ -97,8 +98,8 @@ public class ContactsGroupEditDialogController {
      */
     private void selectContactsGroup() {
         personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        int index = mainApp.getGroupData().indexOf(personContactsGroup);
-        groupIndex.setValue(index);
+        int selectedIndex = mainApp.getGroupData().indexOf(personContactsGroup);
+        groupIndex.setValue(selectedIndex);
     }
 
     /**
@@ -109,6 +110,7 @@ public class ContactsGroupEditDialogController {
     private boolean isValid() {
         String errMsg = "";
         String inputedText = groupBox.getEditor().getText();
+
         if (inputedText == null || inputedText.length() == 0) {
             errMsg += "Наименование группы не может быть пустым";
         } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->

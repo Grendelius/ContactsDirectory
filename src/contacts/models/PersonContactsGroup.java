@@ -25,16 +25,8 @@ public class PersonContactsGroup {
         this.groupLabel.setValue(groupLabel);
     }
 
-    public StringProperty groupLabelProperty() {
-        return groupLabel;
-    }
-
     public List<PersonContact> getPersonContactsList() {
         return personContactList;
-    }
-
-    public void setPersonContactList(List<PersonContact> personContactList) {
-        this.personContactList = personContactList;
     }
 
     @Override
