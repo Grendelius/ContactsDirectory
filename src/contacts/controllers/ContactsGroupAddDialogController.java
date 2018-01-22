@@ -78,13 +78,18 @@ public class ContactsGroupAddDialogController {
     }
 
     /**
-     * Действие при нажатии на Cancel кнопку
+     * Закрывает окно
      */
     @FXML
     public void handleCancel() {
         dialogStage.close();
     }
 
+    /**
+     * Проверяет корректность введенного наименования на null и на повторяющееся значение
+     *
+     * @return true/false
+     */
     private boolean isValid() {
         String errMsg = "";
         String inputedText = groupName.getText();

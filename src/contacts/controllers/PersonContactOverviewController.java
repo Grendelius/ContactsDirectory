@@ -9,8 +9,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.Comparator;
-
 public class PersonContactOverviewController {
     @FXML
     private TableView<PersonContact> personContactTable;
@@ -105,10 +103,10 @@ public class PersonContactOverviewController {
                     FXCollections.observableArrayList(contactGroup.getPersonContactsList());
 
             if (mainApp.getContactData().containsAll(groupContactsList)) {
-                personContactTable.setItems(groupContactsList.sorted(Comparator.comparing(Object::toString)));
+                personContactTable.setItems(groupContactsList);
             }
             if (contactGroup.getGroupLabel().equalsIgnoreCase("Все"))
-                personContactTable.setItems(mainApp.getContactData().sorted(Comparator.comparing(Object::toString)));
+                personContactTable.setItems(mainApp.getContactData());
         }
     }
 
@@ -119,7 +117,7 @@ public class PersonContactOverviewController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        personContactTable.setItems(mainApp.getContactData().sorted(Comparator.comparing(Object::toString)));
+        personContactTable.setItems(mainApp.getContactData());
         groupBox.setItems(mainApp.getGroupData().sorted());
     }
 
