@@ -6,7 +6,6 @@ import javafx.beans.property.StringProperty;
 public class PersonContact {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
-    private StringProperty fullName;
     private StringProperty phoneNumber = new SimpleStringProperty();
     private StringProperty personEmail = new SimpleStringProperty();
 
@@ -57,6 +56,6 @@ public class PersonContact {
     }
 
     public StringProperty fullNameProperty() {
-        return fullName = new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
+        return new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
     }
 }

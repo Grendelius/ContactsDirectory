@@ -20,7 +20,6 @@ public class AddPersonContactToGroupDialogController {
     private Button addBtn;
 
     private Stage dialogStage;
-    private MainApp mainApp;
     private IntegerProperty groupIndex = new SimpleIntegerProperty();
 
 
@@ -71,8 +70,7 @@ public class AddPersonContactToGroupDialogController {
      * @param mainApp - объект класса MainApp
      */
     public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-        groupBox.setItems(mainApp.getGroupData().sorted());
+        groupBox.setItems(mainApp.getGroupData());
     }
 
     @FXML
