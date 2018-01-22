@@ -189,4 +189,15 @@ public class PersonContactOverviewController {
         }
     }
 
+    //TODO продумать реализацию корректного удаления, пересмотреть слушатель для фильтрации контактов
+    @FXML
+    private void handleDeleteFromGroup() {
+        int selectedGroup = groupBox.getSelectionModel().getSelectedIndex();
+        int selectedContact = personContactTable.getSelectionModel().getSelectedIndex();
+
+        if (selectedGroup > 0) {
+            mainApp.getGroupData().get(selectedGroup).getPersonContactsList().remove(selectedContact);
+        }
+    }
+
 }
