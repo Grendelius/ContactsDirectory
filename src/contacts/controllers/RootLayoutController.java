@@ -1,8 +1,8 @@
-package contacts.view;
+package contacts.controllers;
 
 import contacts.MainApp;
-import contacts.model.PersonContact;
-import contacts.model.PersonContactGroup;
+import contacts.models.PersonContact;
+import contacts.models.PersonContactsGroup;
 import javafx.fxml.FXML;
 
 public class RootLayoutController {
@@ -23,7 +23,7 @@ public class RootLayoutController {
      */
     @FXML
     private void handleCreateContactsGroup() {
-        PersonContactGroup tempGroup = new PersonContactGroup();
+        PersonContactsGroup tempGroup = new PersonContactsGroup();
         boolean isAddClicked = mainApp.showContactsGroupAddDialog(tempGroup);
 
         if (isAddClicked) {

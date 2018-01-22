@@ -1,7 +1,7 @@
-package contacts.view;
+package contacts.controllers;
 
 import contacts.MainApp;
-import contacts.model.PersonContactGroup;
+import contacts.models.PersonContactsGroup;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -13,7 +13,7 @@ public class ContactsGroupAddDialogController {
 
     private Stage dialogStage;
     private MainApp mainApp;
-    private PersonContactGroup personContactGroup;
+    private PersonContactsGroup personContactsGroup;
     private boolean addClicked;
 
     /**
@@ -60,8 +60,8 @@ public class ContactsGroupAddDialogController {
         return addClicked;
     }
 
-    public void setPersonContactGroup(PersonContactGroup contactGroup) {
-        this.personContactGroup = contactGroup;
+    public void setPersonContactsGroup(PersonContactsGroup contactGroup) {
+        this.personContactsGroup = contactGroup;
     }
 
     /**
@@ -70,7 +70,7 @@ public class ContactsGroupAddDialogController {
     @FXML
     public void handleAdd() {
         if (isValid()) {
-            personContactGroup.setGroupLabel(groupName.getText().trim());
+            personContactsGroup.setGroupLabel(groupName.getText().trim());
 
             addClicked = true;
             dialogStage.close();

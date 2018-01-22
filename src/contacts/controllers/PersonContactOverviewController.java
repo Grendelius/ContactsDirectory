@@ -1,9 +1,9 @@
-package contacts.view;
+package contacts.controllers;
 
 import contacts.MainApp;
-import contacts.model.EmailUtil;
-import contacts.model.PersonContact;
-import contacts.model.PersonContactGroup;
+import contacts.models.EmailUtil;
+import contacts.models.PersonContact;
+import contacts.models.PersonContactsGroup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ public class PersonContactOverviewController {
     @FXML
     private TableColumn<PersonContact, String> telColumn;
     @FXML
-    private ComboBox<PersonContactGroup> groupBox;
+    private ComboBox<PersonContactsGroup> groupBox;
 
     @FXML
     private Label firstNameLabel;
@@ -40,10 +40,10 @@ public class PersonContactOverviewController {
      * @param param - визуальный список ячеек групп контактов
      * @return новая ячейка - наименование группы контактов
      */
-    private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
+    private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
         return new ListCell<>() {
             @Override
-            protected void updateItem(PersonContactGroup item, boolean empty) {
+            protected void updateItem(PersonContactsGroup item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(item != null && !empty ? item.toString() : null);
             }
@@ -99,10 +99,10 @@ public class PersonContactOverviewController {
      *
      * @param contactGroup - группа контактов, выбранная из списка
      */
-    private void showPersonContactsOfSelectedGroup(PersonContactGroup contactGroup) {
+    private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
             ObservableList<PersonContact> groupContactsList =
-                    FXCollections.observableArrayList(contactGroup.getPersonContactList());
+                    FXCollections.observableArrayList(contactGroup.getPersonContactsList());
 
             if (mainApp.getContactData().containsAll(groupContactsList)) {
                 personContactTable.setItems(groupContactsList);

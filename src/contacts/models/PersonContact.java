@@ -1,4 +1,4 @@
-package contacts.model;
+package contacts.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -12,7 +12,7 @@ public class PersonContact {
     private StringProperty fullName;
     private StringProperty phoneNumber = new SimpleStringProperty();
     private StringProperty personEmail = new SimpleStringProperty();
-    private Set<PersonContactGroup> group = new HashSet<>();
+    private Set<PersonContactsGroup> group = new HashSet<>();
 
     public PersonContact() {
     }
@@ -80,11 +80,11 @@ public class PersonContact {
         return fullName = new SimpleStringProperty(getFirstName().concat("\n").concat(getLastName()));
     }
 
-    public Set<PersonContactGroup> getGroup() {
+    public Set<PersonContactsGroup> getGroup() {
         return group;
     }
 
-    public void setGroup(Set<PersonContactGroup> group) {
+    public void setGroup(Set<PersonContactsGroup> group) {
         this.group = group;
     }
 

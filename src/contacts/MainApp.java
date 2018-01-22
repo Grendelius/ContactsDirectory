@@ -1,8 +1,8 @@
 package contacts;
 
-import contacts.model.PersonContact;
-import contacts.model.PersonContactGroup;
-import contacts.view.*;
+import contacts.controllers.*;
+import contacts.models.PersonContact;
+import contacts.models.PersonContactsGroup;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,25 +19,25 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
-    private ObservableList<PersonContactGroup> groupData = FXCollections.observableArrayList();
+    private ObservableList<PersonContactsGroup> groupData = FXCollections.observableArrayList();
 
     public MainApp() {
-        groupData.add(0, new PersonContactGroup("Все"));
-        groupData.add(new PersonContactGroup("Друзья"));
-        groupData.add(new PersonContactGroup("Семья"));
-        groupData.add(new PersonContactGroup("Работа"));
+        groupData.add(0, new PersonContactsGroup("Все"));
+        groupData.add(new PersonContactsGroup("Друзья"));
+        groupData.add(new PersonContactsGroup("Семья"));
+        groupData.add(new PersonContactsGroup("Работа"));
         PersonContact p = new PersonContact("Ivanov", "Ivan", "02", "email@mail.ru");
         PersonContact p1 = new PersonContact("Alexov", "Alex", "03", "email1@mail.ru");
         PersonContact p2 = new PersonContact("Alekhan", "Serg", "04", "email1@mail.ru");
-        PersonContactGroup pgroup = new PersonContactGroup("Тест");
-        PersonContactGroup pgroup2 = new PersonContactGroup("Тест2");
+        PersonContactsGroup pgroup = new PersonContactsGroup("Тест");
+        PersonContactsGroup pgroup2 = new PersonContactsGroup("Тест2");
         contactData.add(p);
         contactData.add(p1);
         contactData.add(p2);
         groupData.add(pgroup);
         groupData.add(pgroup2);
-        pgroup.getPersonContactList().add(p);
-        pgroup2.getPersonContactList().add(p1);
+        pgroup.getPersonContactsList().add(p);
+        pgroup2.getPersonContactsList().add(p1);
     }
 
     public static void main(String[] args) {
@@ -53,7 +53,7 @@ public class MainApp extends Application {
         return contactData;
     }
 
-    public ObservableList<PersonContactGroup> getGroupData() {
+    public ObservableList<PersonContactsGroup> getGroupData() {
         return groupData;
     }
 
@@ -72,7 +72,7 @@ public class MainApp extends Application {
      */
     private void initRootLayout() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/RootLayout.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/RootLayout.fxml"));
             rootLayout = loader.load();
             primaryStage.setScene(new Scene(rootLayout));
 
@@ -91,7 +91,7 @@ public class MainApp extends Application {
     private void showPersonContactOverview() {
         try {
             // Загрузка сведений о контактах
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactOverview.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/PersonContactOverview.fxml"));
             AnchorPane contactOverview = loader.load();
 
             // Размещение сведений о контактах в центр корневого макета BorderPane.
@@ -114,7 +114,7 @@ public class MainApp extends Application {
      */
     public boolean showPersonContactEditDialog(PersonContact contact) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/PersonContactEditDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/PersonContactEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             // Создание главной сцены для диалогового окна и присваивание её к корневому макету BorderPane
@@ -143,12 +143,12 @@ public class MainApp extends Application {
     /**
      * Вызов окна добавления/создания новой группы контактов
      *
-     * @param contactsGroup - экземпляр класса PersonContactGroup
+     * @param contactsGroup - экземпляр класса PersonContactsGroup
      * @return boolean значение нажатия кнопки Add(isAddClicked)
      */
-    public boolean showContactsGroupAddDialog(PersonContactGroup contactsGroup) {
+    public boolean showContactsGroupAddDialog(PersonContactsGroup contactsGroup) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactsGroupAddDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/ContactsGroupAddDialog.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
@@ -160,7 +160,7 @@ public class MainApp extends Application {
             ContactsGroupAddDialogController controller = loader.getController();
             controller.setMainApp(this);
             controller.setPrimaryStage(dialogStage);
-            controller.setPersonContactGroup(contactsGroup);
+            controller.setPersonContactsGroup(contactsGroup);
 
             dialogStage.showAndWait();
 
@@ -176,7 +176,7 @@ public class MainApp extends Application {
      */
     public void showContactsGroupEditDialog() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/ContactsGroupEditDialog.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("views/ContactsGroupEditDialog.fxml"));
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();

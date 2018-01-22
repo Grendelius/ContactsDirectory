@@ -1,7 +1,7 @@
-package contacts.view;
+package contacts.controllers;
 
-import contacts.model.EmailUtil;
-import contacts.model.PersonContact;
+import contacts.models.EmailUtil;
+import contacts.models.PersonContact;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;

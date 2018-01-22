@@ -1,4 +1,4 @@
-package contacts.model;
+package contacts.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -6,14 +6,14 @@ import javafx.beans.property.StringProperty;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonContactGroup {
+public class PersonContactsGroup {
     private StringProperty groupLabel = new SimpleStringProperty();
     private List<PersonContact> personContactList = new ArrayList<>();
 
-    public PersonContactGroup() {
+    public PersonContactsGroup() {
     }
 
-    public PersonContactGroup(String name) {
+    public PersonContactsGroup(String name) {
         groupLabel.setValue(name);
     }
 
@@ -29,7 +29,7 @@ public class PersonContactGroup {
         return groupLabel;
     }
 
-    public List<PersonContact> getPersonContactList() {
+    public List<PersonContact> getPersonContactsList() {
         return personContactList;
     }
 

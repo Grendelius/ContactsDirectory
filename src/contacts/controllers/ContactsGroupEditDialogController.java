@@ -1,7 +1,7 @@
-package contacts.view;
+package contacts.controllers;
 
 import contacts.MainApp;
-import contacts.model.PersonContactGroup;
+import contacts.models.PersonContactsGroup;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class ContactsGroupEditDialogController {
     @FXML
-    private ComboBox<PersonContactGroup> groupBox;
+    private ComboBox<PersonContactsGroup> groupBox;
     @FXML
     private Button deleteBtn;
     @FXML
@@ -20,7 +20,7 @@ public class ContactsGroupEditDialogController {
 
     private Stage dialogStage;
     private MainApp mainApp;
-    private PersonContactGroup personContactsGroup;
+    private PersonContactsGroup personContactsGroup;
     private IntegerProperty groupIndex = new SimpleIntegerProperty();
 
     /**
@@ -29,10 +29,10 @@ public class ContactsGroupEditDialogController {
      * @param param - визуальный список ячеек групп контактов
      * @return новая ячейка - наименование группы контактов
      */
-    private static ListCell<PersonContactGroup> call(ListView<PersonContactGroup> param) {
+    private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
         return new ListCell<>() {
             @Override
-            protected void updateItem(PersonContactGroup item, boolean empty) {
+            protected void updateItem(PersonContactsGroup item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(item != null && !empty ? item.toString() : null);
             }
@@ -42,7 +42,12 @@ public class ContactsGroupEditDialogController {
     @FXML
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
+
+        // Следим за выбором
+        // получаем индекс выбранной группы из общего списка
         groupBox.getEditor().textProperty().addListener((observable, oldValue, newValue) -> selectContactsGroup());
+
+        // Отключаем кнопки при пустом выборе или выборе группы контактов "Все"
         saveBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
         deleteBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
     }
@@ -52,9 +57,10 @@ public class ContactsGroupEditDialogController {
      */
     @FXML
     private void handleRenameGroup() {
+        int index = groupIndex.getValue();
         String inputedText = groupBox.getEditor().getText();
         if (isValid()) {
-            mainApp.getGroupData().get(groupIndex.getValue()).setGroupLabel(inputedText);
+            mainApp.getGroupData().get(index).setGroupLabel(inputedText);
         }
 
     }
@@ -64,8 +70,9 @@ public class ContactsGroupEditDialogController {
      */
     @FXML
     private void handleDeleteGroup() {
-        if (groupIndex.getValue() > 0) {
-            mainApp.getGroupData().remove(groupIndex);
+        int index = groupIndex.getValue();
+        if (index > 0) {
+            mainApp.getGroupData().remove(index);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
@@ -77,6 +84,9 @@ public class ContactsGroupEditDialogController {
         }
     }
 
+    /**
+     * Закрывает окно по нажатию кнопки Close
+     */
     @FXML
     private void handleClose() {
         dialogStage.close();
@@ -91,6 +101,11 @@ public class ContactsGroupEditDialogController {
         groupIndex.setValue(index);
     }
 
+    /**
+     * Валидация ввода данных в редактируемое поле
+     *
+     * @return true/false
+     */
     private boolean isValid() {
         String errMsg = "";
         String inputedText = groupBox.getEditor().getText();
