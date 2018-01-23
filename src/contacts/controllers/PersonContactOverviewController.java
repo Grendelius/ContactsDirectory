@@ -4,8 +4,6 @@ import contacts.MainApp;
 import contacts.models.EmailUtil;
 import contacts.models.PersonContact;
 import contacts.models.PersonContactsGroup;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -99,14 +97,11 @@ public class PersonContactOverviewController {
      */
     private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
-            ObservableList<PersonContact> groupContactsList =
-                    FXCollections.observableArrayList(contactGroup.getPersonContactsList());
+            personContactTable.setItems(contactGroup.getPersonContactsList());
+        }
 
-            if (mainApp.getContactData().containsAll(groupContactsList)) {
-                personContactTable.setItems(groupContactsList);
-            }
-            if (contactGroup.getGroupLabel().equalsIgnoreCase("Все"))
-                personContactTable.setItems(mainApp.getContactData());
+        if (contactGroup.getGroupLabel().equalsIgnoreCase("Все")) {
+            personContactTable.setItems(mainApp.getContactData());
         }
     }
 
@@ -122,7 +117,7 @@ public class PersonContactOverviewController {
     }
 
     /**
-     * Удаление выбранного элемента из таблицы
+     * Удаление выбранного контакта из таблицы
      * с предупреждением
      */
     @FXML
@@ -188,16 +183,4 @@ public class PersonContactOverviewController {
             mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact);
         }
     }
-
-    //TODO продумать реализацию корректного удаления, пересмотреть слушатель для фильтрации контактов
-    @FXML
-    private void handleDeleteFromGroup() {
-        int selectedGroup = groupBox.getSelectionModel().getSelectedIndex();
-        int selectedContact = personContactTable.getSelectionModel().getSelectedIndex();
-
-        if (selectedGroup > 0) {
-            mainApp.getGroupData().get(selectedGroup).getPersonContactsList().remove(selectedContact);
-        }
-    }
-
 }

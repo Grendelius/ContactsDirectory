@@ -72,7 +72,7 @@ public class ContactsGroupEditDialogController {
     private void handleDeleteGroup() {
         int selectedIndex = groupIndex.getValue();
 
-        if (selectedIndex > 0) {
+        if (selectedIndex > 0 && groupIndex != null) {
             mainApp.getGroupData().remove(selectedIndex);
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -98,8 +98,7 @@ public class ContactsGroupEditDialogController {
      */
     private void selectContactsGroup() {
         personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        int selectedIndex = mainApp.getGroupData().indexOf(personContactsGroup);
-        groupIndex.setValue(selectedIndex);
+        groupIndex.setValue(mainApp.getGroupData().indexOf(personContactsGroup));
     }
 
     /**

@@ -207,7 +207,7 @@ public class MainApp extends Application {
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Добавление контакта в группу контактов");
+            dialogStage.setTitle("Добавление в группу");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));

@@ -2,13 +2,12 @@ package contacts.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-
-import java.util.ArrayList;
-import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PersonContactsGroup {
     private StringProperty groupLabel = new SimpleStringProperty();
-    private List<PersonContact> personContactList = new ArrayList<>();
+    private ObservableList<PersonContact> personContactList = FXCollections.observableArrayList();
 
     public PersonContactsGroup() {
     }
@@ -25,7 +24,7 @@ public class PersonContactsGroup {
         this.groupLabel.setValue(groupLabel);
     }
 
-    public List<PersonContact> getPersonContactsList() {
+    public ObservableList<PersonContact> getPersonContactsList() {
         return personContactList;
     }
 

@@ -27,7 +27,7 @@
                                     <items>
                                         <MenuItem fx:id="contextMenu" mnemonicParsing="false"
                                                   onAction="#handleAddToGroup" text="Добавить в группу"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#handleDeleteFromGroup"
+                                        <MenuItem mnemonicParsing="false" onAction="#handleDeleteContact"
                                                   text="Удалить из группы"/>
                                     </items>
                                 </ContextMenu>
