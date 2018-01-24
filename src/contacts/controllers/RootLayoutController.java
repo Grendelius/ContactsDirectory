@@ -4,6 +4,9 @@ import contacts.MainApp;
 import contacts.models.PersonContact;
 import contacts.models.PersonContactsGroup;
 import javafx.fxml.FXML;
+import javafx.stage.FileChooser;
+
+import java.io.File;
 
 public class RootLayoutController {
     // Ссылка на главное приложение
@@ -50,6 +53,48 @@ public class RootLayoutController {
     @FXML
     private void handleEditContactsGroups() {
         mainApp.showContactsGroupEditDialog();
+    }
+
+    /**
+     * Создает пустой справочник
+     */
+    @FXML
+    private void handleNewDirectory() {
+        mainApp.getContactData().clear();
+        mainApp.getGroupData().clear();
+        mainApp.addDefaultsGroups();
+        mainApp.setAppDataFilePath(null);
+    }
+
+    @FXML
+    private void handleOpenDirectory() throws Exception {
+        FileChooser fc = new FileChooser();
+
+        File file = fc.showOpenDialog(mainApp.getPrimaryStage());
+
+        if (file != null) {
+            mainApp.loadDataFromFile(file);
+        }
+
+    }
+
+    @FXML
+    private void handleSaveDirectory() throws Exception {
+        File file = mainApp.getAppDataFilePath();
+
+        if (file != null) {
+            mainApp.saveDataToFile(file);
+        } else handleSaveAs();
+    }
+
+    @FXML
+    private void handleSaveAs() throws Exception {
+        FileChooser fc = new FileChooser();
+        File file = fc.showSaveDialog(mainApp.getPrimaryStage());
+
+        if (file != null) {
+            mainApp.saveDataToFile(file);
+        }
     }
 
     /**

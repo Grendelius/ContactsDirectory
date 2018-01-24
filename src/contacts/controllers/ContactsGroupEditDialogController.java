@@ -30,7 +30,7 @@ public class ContactsGroupEditDialogController {
      * @return новая ячейка - наименование группы контактов
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
-        return new ListCell<>() {
+        return new ListCell<PersonContactsGroup>() {
             @Override
             protected void updateItem(PersonContactsGroup item, boolean empty) {
                 super.updateItem(item, empty);
@@ -39,6 +39,10 @@ public class ContactsGroupEditDialogController {
         };
     }
 
+    /**
+     * Инициализация элементов на веб-форме (заполнение выпадающего списка значения,
+     * отключение кнопок при выборе всех групп)
+     */
     @FXML
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
@@ -74,14 +78,6 @@ public class ContactsGroupEditDialogController {
 
         if (selectedIndex > 0 && groupIndex != null) {
             mainApp.getGroupData().remove(selectedIndex);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Внимание!");
-            alert.setHeaderText("Отсутствует группа контактов для выбора");
-            alert.setContentText("Пожалуйста выберите или создайте группу контактов");
-
-            alert.showAndWait();
         }
     }
 
@@ -98,7 +94,8 @@ public class ContactsGroupEditDialogController {
      */
     private void selectContactsGroup() {
         personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
-        groupIndex.setValue(mainApp.getGroupData().indexOf(personContactsGroup));
+        int selectedIndex = mainApp.getGroupData().indexOf(personContactsGroup);
+        groupIndex.setValue(selectedIndex);
     }
 
     /**

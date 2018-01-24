@@ -3,7 +3,9 @@ package contacts.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class PersonContact {
+import java.io.Serializable;
+
+public class PersonContact implements Serializable {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
     private StringProperty phoneNumber = new SimpleStringProperty();

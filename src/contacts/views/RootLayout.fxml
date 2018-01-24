@@ -9,7 +9,10 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Close"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpenDirectory"
+                                  text="Открыть справочник из файла"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewDirectory" text="Новый справочник"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveDirectory" text="Сохранить"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Действия">

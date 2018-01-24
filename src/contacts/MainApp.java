@@ -1,8 +1,7 @@
 package contacts;
 
 import contacts.controllers.*;
-import contacts.models.PersonContact;
-import contacts.models.PersonContactsGroup;
+import contacts.models.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +12,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import java.io.File;
 import java.io.IOException;
+import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
     private Stage primaryStage;
@@ -22,26 +25,18 @@ public class MainApp extends Application {
     private ObservableList<PersonContactsGroup> groupData = FXCollections.observableArrayList();
 
     public MainApp() {
-        groupData.add(0, new PersonContactsGroup("Все"));
-        groupData.add(new PersonContactsGroup("Друзья"));
-        groupData.add(new PersonContactsGroup("Семья"));
-        groupData.add(new PersonContactsGroup("Работа"));
-        PersonContact p = new PersonContact("Ivanov", "Ivan", "02", "email@mail.ru");
-        PersonContact p1 = new PersonContact("Alexov", "Alex", "03", "email1@mail.ru");
-        PersonContact p2 = new PersonContact("Alekhan", "Serg", "04", "email1@mail.ru");
-        PersonContactsGroup pgroup = new PersonContactsGroup("Тест");
-        PersonContactsGroup pgroup2 = new PersonContactsGroup("Тест2");
-        contactData.add(p);
-        contactData.add(p1);
-        contactData.add(p2);
-        groupData.add(pgroup);
-        groupData.add(pgroup2);
-        pgroup.getPersonContactsList().add(p);
-        pgroup2.getPersonContactsList().add(p1);
+        addDefaultsGroups();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void addDefaultsGroups() {
+        this.getGroupData().add(0, new PersonContactsGroup("Все"));
+        this.getGroupData().add(new PersonContactsGroup("Семья"));
+        this.getGroupData().add(new PersonContactsGroup("Друзья"));
+        this.getGroupData().add(new PersonContactsGroup("Коллеги"));
     }
 
     /**
@@ -233,5 +228,78 @@ public class MainApp extends Application {
      */
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    /**
+     * Возвращает путь к последнему открытому файлу
+     *
+     * @return
+     */
+    public File getAppDataFilePath() {
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+        String filePath = prefs.get("filePath", null);
+        if (filePath != null) {
+            return new File(filePath);
+        } else return null;
+    }
+
+    /**
+     * Устанавливает путь к файлу с сохраненными данными.
+     *
+     * @param file - файл в директории сохранения
+     */
+    public void setAppDataFilePath(File file) {
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+        if (file != null) {
+            prefs.put("filePath", file.getPath());
+            primaryStage.setTitle("Справочник контактов - " + file.getName());
+        } else {
+            prefs.remove("filePath");
+            primaryStage.setTitle("Справочник контактов");
+        }
+    }
+
+    /**
+     * Сохранение данных справочника в файл.
+     *
+     * @param file - файл
+     * @throws IOException
+     */
+    public void saveDataToFile(File file) throws Exception {
+        Marshaller m1 = MarshallerCreater.createMarshall(PersonContactWrapper.class);
+        Marshaller m2 = MarshallerCreater.createMarshall(ContactsGroupWrapper.class);
+
+        PersonContactWrapper contactsWrapper = new PersonContactWrapper();
+        ContactsGroupWrapper groupsWrapper = new ContactsGroupWrapper();
+
+        contactsWrapper.setContacts(contactData);
+        groupsWrapper.setGroups(groupData);
+
+        m1.marshal(contactsWrapper, file);
+        m2.marshal(groupsWrapper, file);
+
+        setAppDataFilePath(file);
+    }
+
+    /**
+     * Загрузка данных справочника из файла.
+     *
+     * @param file - файл
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public void loadDataFromFile(File file) throws Exception {
+        Unmarshaller um1 = MarshallerCreater.createUnmarshall(PersonContactWrapper.class);
+        Unmarshaller um2 = MarshallerCreater.createUnmarshall(ContactsGroupWrapper.class);
+
+        PersonContactWrapper contactsWrapper = (PersonContactWrapper) um1.unmarshal(file);
+        contactData.clear();
+        contactData.addAll(contactsWrapper.getContacts());
+
+        ContactsGroupWrapper groupsWrapper = (ContactsGroupWrapper) um2.unmarshal(file);
+        groupData.clear();
+        groupData.addAll(groupsWrapper.getGroups());
+
+        setAppDataFilePath(file);
     }
 }

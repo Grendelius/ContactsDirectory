@@ -30,7 +30,7 @@ public class AddPersonContactToGroupDialogController {
      * @return новая ячейка - наименование группы контактов
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
-        return new ListCell<>() {
+        return new ListCell<PersonContactsGroup>() {
             @Override
             protected void updateItem(PersonContactsGroup item, boolean empty) {
                 super.updateItem(item, empty);

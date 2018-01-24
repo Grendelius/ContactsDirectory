@@ -7,6 +7,8 @@ import contacts.models.PersonContactsGroup;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.Comparator;
+
 public class PersonContactOverviewController {
     @FXML
     private TableView<PersonContact> personContactTable;
@@ -37,7 +39,7 @@ public class PersonContactOverviewController {
      * @return новая ячейка - наименование группы контактов
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
-        return new ListCell<>() {
+        return new ListCell<PersonContactsGroup>() {
             @Override
             protected void updateItem(PersonContactsGroup item, boolean empty) {
                 super.updateItem(item, empty);
@@ -98,10 +100,10 @@ public class PersonContactOverviewController {
     private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
             personContactTable.setItems(contactGroup.getPersonContactsList());
-        }
 
-        if (contactGroup.getGroupLabel().equalsIgnoreCase("Все")) {
-            personContactTable.setItems(mainApp.getContactData());
+            if (contactGroup.getGroupLabel().equalsIgnoreCase("Все")) {
+                personContactTable.setItems(mainApp.getContactData());
+            }
         }
     }
 
@@ -113,7 +115,7 @@ public class PersonContactOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         personContactTable.setItems(mainApp.getContactData());
-        groupBox.setItems(mainApp.getGroupData().sorted());
+        groupBox.setItems(mainApp.getGroupData().sorted(Comparator.comparing(Object::toString)));
     }
 
     /**
