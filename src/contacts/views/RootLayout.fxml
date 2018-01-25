@@ -7,12 +7,12 @@
     <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
-                <Menu mnemonicParsing="false" text="Файл">
+                <Menu mnemonicParsing="false" text="Справочник">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#handleOpenDirectory"
-                                  text="Открыть справочник из файла"/>
-                        <MenuItem mnemonicParsing="false" onAction="#handleNewDirectory" text="Новый справочник"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewDirectory" text="Новый"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpenDirectory" text="Открыть"/>
                         <MenuItem mnemonicParsing="false" onAction="#handleSaveDirectory" text="Сохранить"/>
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Выйти"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Действия">

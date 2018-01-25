@@ -1,19 +1,21 @@
 package contacts.models;
 
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Класс - обертка для списка групп
  */
-@XmlRootElement(namespace = "groups")
-public class ContactsGroupWrapper implements Serializable {
+@XmlRootElement(name = "groups")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class ContactsGroupWrapper {
+    @XmlElement(name = "group")
     private List<PersonContactsGroup> groupsList;
 
-    @XmlElement(name = "group")
     public List<PersonContactsGroup> getGroups() {
         return groupsList;
     }

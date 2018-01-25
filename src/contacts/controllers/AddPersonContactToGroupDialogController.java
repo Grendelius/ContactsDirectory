@@ -12,6 +12,8 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import java.util.Comparator;
+
 
 public class AddPersonContactToGroupDialogController {
     @FXML
@@ -20,6 +22,7 @@ public class AddPersonContactToGroupDialogController {
     private Button addBtn;
 
     private Stage dialogStage;
+    private MainApp mainApp;
     private IntegerProperty groupIndex = new SimpleIntegerProperty();
 
 
@@ -50,8 +53,8 @@ public class AddPersonContactToGroupDialogController {
      * Записывает индекс выбранной группы из общего списка
      */
     private void selectGroupFromList() {
-        int selectedIndex = groupBox.getSelectionModel().getSelectedIndex();
-        groupIndex.setValue(selectedIndex);
+        PersonContactsGroup selectedGroup = groupBox.getSelectionModel().getSelectedItem();
+        groupIndex.setValue(mainApp.getGroupData().indexOf(selectedGroup));
     }
 
 
@@ -70,7 +73,8 @@ public class AddPersonContactToGroupDialogController {
      * @param mainApp - объект класса MainApp
      */
     public void setMainApp(MainApp mainApp) {
-        groupBox.setItems(mainApp.getGroupData());
+        this.mainApp = mainApp;
+        groupBox.setItems(mainApp.getGroupData().sorted(Comparator.comparing(Object::toString)));
     }
 
     @FXML

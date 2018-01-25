@@ -100,10 +100,6 @@ public class PersonContactOverviewController {
     private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
             personContactTable.setItems(contactGroup.getPersonContactsList());
-
-            if (contactGroup.getGroupLabel().equalsIgnoreCase("Все")) {
-                personContactTable.setItems(mainApp.getContactData());
-            }
         }
     }
 
@@ -114,7 +110,7 @@ public class PersonContactOverviewController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        personContactTable.setItems(mainApp.getContactData());
+        personContactTable.setItems(mainApp.getGroupData().get(0).getPersonContactsList());
         groupBox.setItems(mainApp.getGroupData().sorted(Comparator.comparing(Object::toString)));
     }
 
@@ -148,6 +144,7 @@ public class PersonContactOverviewController {
 
         if (isOkClicked) {
             mainApp.getContactData().add(tempContact);
+            mainApp.getGroupData().get(0).getPersonContactsList().add(tempContact);
         }
     }
 
@@ -180,9 +177,18 @@ public class PersonContactOverviewController {
     private void handleAddToGroup() {
         PersonContact selectedContact = personContactTable.getSelectionModel().getSelectedItem();
         int selectedGroup = mainApp.showContactsToGroupAddingDialog();
+        if (!mainApp.getGroupData().get(selectedGroup).getPersonContactsList().contains(selectedContact)) {
+            if (selectedGroup > 0) {
+                mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.initOwner(mainApp.getPrimaryStage());
+            alert.setTitle("Внимание!");
+            alert.setHeaderText("Дубликат контакта");
+            alert.setContentText("Такой контакт уже присутствует в выбранной группе");
 
-        if (selectedGroup > 0) {
-            mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact);
+            alert.showAndWait();
         }
     }
 }

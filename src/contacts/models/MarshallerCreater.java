@@ -9,41 +9,55 @@ public class MarshallerCreater {
     /**
      * Создает маршаллинг для одного из двух классов моделей
      *
-     * @param c - класс контакта или класс группы контактов
      * @return marshaller object
      * @throws Exception
      */
-    public static Marshaller createMarshall(Class c) throws Exception {
+    public static Marshaller createMarshall(Class c) {
         JAXBContext context = null;
-        if (c.equals(PersonContactWrapper.class)) {
-            context = JAXBContext.newInstance(PersonContactWrapper.class);
-        }
-        if (c.equals(ContactsGroupWrapper.class)) {
-            context = JAXBContext.newInstance(ContactsGroupWrapper.class);
-        }
-        Marshaller m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        try {
+            if (c.equals(PersonContactWrapper.class)) {
+                context = JAXBContext.newInstance(PersonContactWrapper.class);
+            }
+            if (c.equals(ContactsGroupWrapper.class)) {
+                context = JAXBContext.newInstance(ContactsGroupWrapper.class);
+            }
 
-        return m;
+            assert context != null;
+            Marshaller m = context.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+            return m;
+
+        } catch (Exception e) {
+            e.getStackTrace();
+            return null;
+        }
+
     }
 
     /**
      * Создает демаршаллинг для одного из двух классов моделей
      *
-     * @param c - класс контакта или класс группы контактов
      * @return unmarshaller object
      * @throws Exception
      */
-    public static Unmarshaller createUnmarshall(Class c) throws Exception {
+    public static Unmarshaller createUnmarshall(Class c) {
         JAXBContext context = null;
-        if (c.equals(PersonContactWrapper.class)) {
-            context = JAXBContext.newInstance(PersonContactWrapper.class);
-        }
-        if (c.equals(ContactsGroupWrapper.class)) {
-            context = JAXBContext.newInstance(ContactsGroupWrapper.class);
-        }
-        Unmarshaller um = context.createUnmarshaller();
+        try {
+            if (c.equals(PersonContactWrapper.class)) {
+                context = JAXBContext.newInstance(PersonContactWrapper.class);
+            }
+            if (c.equals(ContactsGroupWrapper.class)) {
+                context = JAXBContext.newInstance(ContactsGroupWrapper.class);
+            }
 
-        return um;
+            assert context != null;
+
+            return context.createUnmarshaller();
+
+        } catch (Exception e) {
+            e.getStackTrace();
+            return null;
+        }
     }
 }

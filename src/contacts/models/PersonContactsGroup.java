@@ -5,9 +5,15 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "group")
 public class PersonContactsGroup {
-    private StringProperty groupLabel = new SimpleStringProperty();
+    @XmlElement(name = "contact")
     private ObservableList<PersonContact> personContactList = FXCollections.observableArrayList();
+
+    private StringProperty groupLabel = new SimpleStringProperty();
 
     public PersonContactsGroup() {
     }

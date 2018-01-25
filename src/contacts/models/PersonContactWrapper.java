@@ -9,9 +9,10 @@ import java.util.List;
  */
 @XmlRootElement(name = "contacts")
 public class PersonContactWrapper {
-    private List<PersonContact> personContactsList;
 
     @XmlElement(name = "contact")
+    private List<PersonContact> personContactsList;
+
     public List<PersonContact> getContacts() {
         return personContactsList;
     }

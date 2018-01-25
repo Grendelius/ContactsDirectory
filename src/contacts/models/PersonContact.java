@@ -3,9 +3,10 @@ package contacts.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import java.io.Serializable;
+import javax.xml.bind.annotation.XmlRootElement;
 
-public class PersonContact implements Serializable {
+@XmlRootElement(name = "contact")
+public class PersonContact {
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
     private StringProperty phoneNumber = new SimpleStringProperty();
@@ -14,12 +15,12 @@ public class PersonContact implements Serializable {
     public PersonContact() {
     }
 
-    public PersonContact(String fname, String lname, String phone, String email) {
-        this.firstName = new SimpleStringProperty(fname);
-        this.lastName = new SimpleStringProperty(lname);
-        this.phoneNumber = new SimpleStringProperty(phone);
-        this.personEmail = new SimpleStringProperty(email);
-    }
+//    public PersonContact(String fname, String lname, String phone, String email) {
+//        this.firstName = new SimpleStringProperty(fname);
+//        this.lastName = new SimpleStringProperty(lname);
+//        this.phoneNumber = new SimpleStringProperty(phone);
+//        this.personEmail = new SimpleStringProperty(email);
+//    }
 
     public String getFirstName() {
         return firstName.get();
