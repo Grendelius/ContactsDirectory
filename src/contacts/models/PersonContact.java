@@ -4,6 +4,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
 
 @XmlRootElement(name = "contact")
 public class PersonContact {
@@ -60,5 +61,23 @@ public class PersonContact {
 
     public StringProperty fullNameProperty() {
         return new SimpleStringProperty(getLastName().concat("\n").concat(getFirstName()));
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonContact that = (PersonContact) o;
+        return Objects.equals(getFirstName(), that.getFirstName()) &&
+                Objects.equals(getLastName(), that.getLastName()) &&
+                Objects.equals(getPhoneNumber(), that.getPhoneNumber()) &&
+                Objects.equals(getPersonEmail(), that.getPersonEmail());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getFirstName(), getLastName(), getPhoneNumber(), getPersonEmail());
     }
 }

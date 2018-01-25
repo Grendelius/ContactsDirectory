@@ -143,7 +143,6 @@ public class PersonContactOverviewController {
         boolean isOkClicked = mainApp.showPersonContactEditDialog(tempContact);
 
         if (isOkClicked) {
-            mainApp.getContactData().add(tempContact);
             mainApp.getGroupData().get(0).getPersonContactsList().add(tempContact);
         }
     }

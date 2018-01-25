@@ -29,8 +29,8 @@ import java.util.prefs.Preferences;
 public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
     private ObservableList<PersonContactsGroup> groupData = FXCollections.observableArrayList();
+    private ObservableList<PersonContact> contactData = FXCollections.observableArrayList();
 
     public MainApp() {
         addDefaultsGroups();
@@ -41,10 +41,10 @@ public class MainApp extends Application {
     }
 
     public void addDefaultsGroups() {
-        this.getGroupData().add(0, new PersonContactsGroup("Все"));
-        this.getGroupData().add(new PersonContactsGroup("Семья"));
-        this.getGroupData().add(new PersonContactsGroup("Друзья"));
-        this.getGroupData().add(new PersonContactsGroup("Коллеги"));
+        getGroupData().add(0, new PersonContactsGroup("Все"));
+        getGroupData().add(new PersonContactsGroup("Семья"));
+        getGroupData().add(new PersonContactsGroup("Друзья"));
+        getGroupData().add(new PersonContactsGroup("Коллеги"));
     }
 
     /**
@@ -272,9 +272,6 @@ public class MainApp extends Application {
             primaryStage.setTitle("Справочник контактов");
         }
     }
-
-    //TODO Продумать реализацию маршаллинга для последовательного сохранение групп и контактов
-    //TODO Реализовать корректную загрузку данных из файла
 
     /**
      * Сохранение данных справочника в файл.

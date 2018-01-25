@@ -45,7 +45,8 @@ public class AddPersonContactToGroupDialogController {
     @FXML
     private void initialize() {
         groupBox.setCellFactory(AddPersonContactToGroupDialogController::call);
-        groupBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> selectGroupFromList());
+        groupBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+                selectGroupFromList());
         addBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
     }
 

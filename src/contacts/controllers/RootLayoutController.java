@@ -69,6 +69,9 @@ public class RootLayoutController {
     @FXML
     private void handleOpenDirectory() throws Exception {
         FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
+                "XM: files (*.xml)", "*.xml");
+        fc.getExtensionFilters().add(filter);
 
         File file = fc.showOpenDialog(mainApp.getPrimaryStage());
 
@@ -90,9 +93,16 @@ public class RootLayoutController {
     @FXML
     private void handleSaveAs() throws Exception {
         FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
+                "XM: files (*.xml)", "*.xml");
+        fc.getExtensionFilters().add(filter);
+
         File file = fc.showSaveDialog(mainApp.getPrimaryStage());
 
         if (file != null) {
+            if (!file.getPath().endsWith(".xml")) {
+                file = new File(file.getPath() + ".xml");
+            }
             mainApp.saveDataToFile(file);
         }
     }
