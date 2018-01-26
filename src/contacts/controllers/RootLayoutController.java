@@ -63,7 +63,7 @@ public class RootLayoutController {
         mainApp.getContactData().clear();
         mainApp.getGroupData().clear();
         mainApp.addDefaultsGroups();
-//        mainApp.setAppDataFilePath(null);
+        mainApp.setAppDataFilePath(null, null);
     }
 
     /**
@@ -92,14 +92,14 @@ public class RootLayoutController {
      */
     @FXML
     private void handleSaveDirectory() {
-//        File file1 = mainApp.getAppDataFilePath();
-//        File file2 = mainApp.getAppDataFilePath();
-//
-//        if (file1 != null && file2 != null) {
-//            mainApp.saveContactsDataToFile(file1);
-//            mainApp.saveGroupsDataToFile(file2);
-//        } else handleSaveAs();
-        handleSaveAs();
+        File file1 = mainApp.getAppDataFilePath("contacts");
+        File file2 = mainApp.getAppDataFilePath("groups");
+
+        if (file1 != null && file2 != null) {
+            mainApp.saveContactsDataToFile(file1);
+            mainApp.saveGroupsDataToFile(file2);
+            mainApp.setAppDataFilePath(file1, file2);
+        } else handleSaveAs();
     }
 
     /**
@@ -125,6 +125,7 @@ public class RootLayoutController {
             }
             mainApp.saveContactsDataToFile(file1);
             mainApp.saveGroupsDataToFile(file2);
+            mainApp.setAppDataFilePath(file1, file2);
         }
     }
 

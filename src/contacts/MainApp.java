@@ -19,6 +19,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
     private Stage primaryStage;
@@ -28,9 +29,6 @@ public class MainApp extends Application {
 
     public MainApp() {
         addDefaultsGroups();
-//        List<Long> tempList = new ArrayList<>();
-//        this.getContactData().forEach(c -> tempList.add(c.getId()));
-//        this.getGroupData().get(0).getPersonContactsList().addAll(tempList);
     }
 
     public static void main(String[] args) {
@@ -42,10 +40,6 @@ public class MainApp extends Application {
         getGroupData().add(1, new PersonContactsGroup("Семья"));
         getGroupData().add(2, new PersonContactsGroup("Друзья"));
         getGroupData().add(3, new PersonContactsGroup("Коллеги"));
-        this.contactData.add(new PersonContact("Andrei", "Tolkachev", "22", "mail@mail.ru"));
-        this.contactData.add(new PersonContact("Andrei2", "Tolkachev2", "22", "mail@mail.ru"));
-        this.contactData.add(new PersonContact("Andrei3", "Tolkachev3", "22", "mail@mail.ru"));
-        this.contactData.add(new PersonContact("Andrei4", "Tolkachev4", "22", "mail@mail.ru"));
     }
 
     /**
@@ -88,11 +82,13 @@ public class MainApp extends Application {
             e.getStackTrace();
         }
 
-//        File contactsFile = getAppDataFilePath();
-//
-//        if (contactsFile != null) {
-//            loadDataFromFile(contactsFile);
-//        }
+        File contactsData = getAppDataFilePath("contacts");
+        File groupsData = getAppDataFilePath("groups");
+
+        if (contactsData != null && groupsData != null) {
+            loadDataFromFiles(contactsData, groupsData);
+        }
+
     }
 
     /**
@@ -250,29 +246,34 @@ public class MainApp extends Application {
      *
      * @return
      */
-//    public File getAppDataFilePath() {
-//        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
-//        String filePath = prefs.get("filePath", null);
-//        if (filePath != null) {
-//            return new File(filePath);
-//        } else return null;
-//    }
-//
-//    /**
-//     * Устанавливает путь к файлу с сохраненными данными.
-//     *
-//     * @param file - файл в директории сохранения
-//     */
-//    public void setAppDataFilePath(File file) {
-//        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
-//        if (file != null) {
-//            prefs.put("filePath", file.getPath());
-//            primaryStage.setTitle("Справочник контактов - " + file.getName());
-//        } else {
-//            prefs.remove("filePath");
-//            primaryStage.setTitle("Справочник контактов");
-//        }
-//    }
+    public File getAppDataFilePath(String fileType) {
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+        String filePath = prefs.get("fileContacts", null);
+        String filePath2 = prefs.get("fileGroups", null);
+        if (filePath != null && fileType.equals("contacts")) {
+            return new File(filePath);
+        } else if (filePath2 != null && fileType.equals("groups")) {
+            return new File(filePath2);
+        } else return null;
+    }
+
+    /**
+     * Устанавливает путь к файлу с сохраненными данными.
+     *
+     * @param contactsFile - контакты
+     * @param groupsFile   - группы контактов
+     */
+    public void setAppDataFilePath(File contactsFile, File groupsFile) {
+        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+        if (contactsFile != null && groupsFile != null) {
+            prefs.put("fileContacts", contactsFile.getPath());
+            prefs.put("fileGroups", groupsFile.getPath());
+            primaryStage.setTitle("Справочник контактов - " + contactsFile.getName());
+        } else {
+            prefs.remove("filePath");
+            primaryStage.setTitle("Справочник контактов");
+        }
+    }
 
     // TODO скорректировать согласно изменения модели класса контакта, группы
 
@@ -290,8 +291,6 @@ public class MainApp extends Application {
             contactsWrapper.setContacts(contactData);
             assert m1 != null;
             m1.marshal(contactsWrapper, contactsFile);
-
-//            setAppDataFilePath(contactsFile);
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -318,7 +317,6 @@ public class MainApp extends Application {
             assert m2 != null;
             m2.marshal(groupsWrapper, groupsFile);
 
-//            setAppDataFilePath(groupsFile);
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -342,8 +340,8 @@ public class MainApp extends Application {
         try {
             MarshallerCreater mc1 = new MarshallerCreater();
             MarshallerCreater mc2 = new MarshallerCreater();
-            Unmarshaller um1 = mc1.createUnmarshall(ContactsGroupWrapper.class);
-            Unmarshaller um2 = mc2.createUnmarshall(PersonContactWrapper.class);
+            Unmarshaller um1 = mc1.createUnmarshall(PersonContactWrapper.class);
+            Unmarshaller um2 = mc2.createUnmarshall(ContactsGroupWrapper.class);
 
             PersonContactWrapper contactsWrapper =
                     (PersonContactWrapper) Objects.requireNonNull(um1).unmarshal(contactsFile);
@@ -356,8 +354,7 @@ public class MainApp extends Application {
             contactData.addAll(contactsWrapper.getContacts());
             groupData.addAll(groupsWrapper.getGroups());
 
-//            setAppDataFilePath(contactsFile);
-//            setAppDataFilePath(groupsFile);
+            setAppDataFilePath(contactsFile, groupsFile);
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

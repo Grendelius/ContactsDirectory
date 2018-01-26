@@ -3,19 +3,20 @@ package contacts.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @XmlRootElement(name = "contact")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class PersonContact {
+
+    @XmlElement(name = "id")
+    private long contactId;
     private StringProperty firstName = new SimpleStringProperty();
     private StringProperty lastName = new SimpleStringProperty();
     private StringProperty phoneNumber = new SimpleStringProperty();
     private StringProperty personEmail = new SimpleStringProperty();
-    private Long contactId;
+
 
     public PersonContact() {
         contactId = IdGenerator.getInstance().getNextId();
