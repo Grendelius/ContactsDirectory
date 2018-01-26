@@ -1,13 +1,10 @@
 package contacts.models;
 
-import contacts.MainApp;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class MarshallerCreater {
-    private MainApp mainApp;
 
     /**
      * Создает маршаллинг для одного из двух классов моделей
