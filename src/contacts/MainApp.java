@@ -35,13 +35,6 @@ public class MainApp extends Application {
         launch(args);
     }
 
-    public void addDefaultsGroups() {
-        getGroupData().add(0, new PersonContactsGroup(" --- "));
-        getGroupData().add(1, new PersonContactsGroup("Семья"));
-        getGroupData().add(2, new PersonContactsGroup("Друзья"));
-        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
-    }
-
     /**
      * Возвращает данные о контактах в виде наблюдаемого списка
      *
@@ -361,5 +354,12 @@ public class MainApp extends Application {
 
             alert.showAndWait();
         }
+    }
+
+    private void addDefaultsGroups() {
+        getGroupData().add(0, new PersonContactsGroup(" --- "));
+        getGroupData().add(1, new PersonContactsGroup("Семья"));
+        getGroupData().add(2, new PersonContactsGroup("Друзья"));
+        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
     }
 }
