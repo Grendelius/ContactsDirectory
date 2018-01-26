@@ -8,6 +8,9 @@ import javafx.stage.FileChooser;
 
 import java.io.File;
 
+/**
+ * Класс - контроллер корневого макета
+ */
 public class RootLayoutController {
     // Ссылка на главное приложение
     private MainApp mainApp;

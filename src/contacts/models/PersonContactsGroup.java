@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Класс - модель группы контактов
+ */
 @XmlRootElement(name = "group")
 public class PersonContactsGroup {
 

@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 
 import java.util.Comparator;
 
-
+/**
+ * Класс - контроллер окна добавления контакта в группу
+ */
 public class AddPersonContactToGroupDialogController {
     @FXML
     private ComboBox<PersonContactsGroup> groupBox;

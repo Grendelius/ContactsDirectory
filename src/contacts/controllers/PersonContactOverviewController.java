@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Класс - контролле панель управления контактами
+ */
 public class PersonContactOverviewController {
     @FXML
     private TableView<PersonContact> personContactTable;

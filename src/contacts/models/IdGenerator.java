@@ -1,5 +1,8 @@
 package contacts.models;
 
+/**
+ * Класс - генератор ID для контактов
+ */
 public class IdGenerator {
     private static IdGenerator instance = new IdGenerator();
     private long lastId = 0;

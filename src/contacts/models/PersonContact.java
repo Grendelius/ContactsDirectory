@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
+/**
+ * Класс - модель контакта
+ */
 @XmlRootElement(name = "contact")
 public class PersonContact {
 

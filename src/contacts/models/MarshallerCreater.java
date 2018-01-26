@@ -4,6 +4,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+/**
+ * Класс - фабрика для создания объектов маршаллирования
+ */
 public class MarshallerCreater {
 
     /**

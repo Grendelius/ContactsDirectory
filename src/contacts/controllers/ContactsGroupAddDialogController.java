@@ -7,6 +7,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+/**
+ * Класс - контроллер окна добавления/создания группы
+ */
 public class ContactsGroupAddDialogController {
     @FXML
     private TextField groupName;

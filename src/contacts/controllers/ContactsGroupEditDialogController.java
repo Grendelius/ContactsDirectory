@@ -9,7 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-
+/**
+ * Класс - контроллер окна управления группами контактов
+ */
 public class ContactsGroupEditDialogController {
     @FXML
     private ComboBox<PersonContactsGroup> groupBox;

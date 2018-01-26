@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Диалоговое окно для изменения информации о контакте
+ * Класс - контроллер окна редактирования контакта
  */
 public class PersonContactEditController {
     @FXML
