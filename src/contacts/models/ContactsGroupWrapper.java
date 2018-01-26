@@ -13,9 +13,9 @@ import java.util.List;
 @XmlRootElement(name = "groups")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContactsGroupWrapper {
-    @XmlElement(name = "group")
     private List<PersonContactsGroup> groupsList;
 
+    @XmlElement(name = "group")
     public List<PersonContactsGroup> getGroups() {
         return groupsList;
     }

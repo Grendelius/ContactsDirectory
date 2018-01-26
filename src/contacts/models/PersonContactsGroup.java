@@ -5,13 +5,17 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "group")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class PersonContactsGroup {
-    @XmlElement(name = "contact")
-    private ObservableList<PersonContact> personContactList = FXCollections.observableArrayList();
+
+    @XmlElement(name = "id")
+    private ObservableList<Long> personContactList = FXCollections.observableArrayList();
 
     private StringProperty groupLabel = new SimpleStringProperty();
 
@@ -30,7 +34,7 @@ public class PersonContactsGroup {
         this.groupLabel.setValue(groupLabel);
     }
 
-    public ObservableList<PersonContact> getPersonContactsList() {
+    public ObservableList<Long> getPersonContactsList() {
         return personContactList;
     }
 

@@ -42,11 +42,14 @@ public class AddPersonContactToGroupDialogController {
         };
     }
 
+    /**
+     * Инициализация элементов выпадающего списка, отключение кнопок при выборе общей группы контактов "---"
+     */
     @FXML
     private void initialize() {
         groupBox.setCellFactory(AddPersonContactToGroupDialogController::call);
-        groupBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-                selectGroupFromList());
+        groupBox.getSelectionModel().selectedItemProperty().addListener(
+                (ov, oldValue, newValue) -> selectGroupFromList());
         addBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
     }
 
@@ -57,7 +60,6 @@ public class AddPersonContactToGroupDialogController {
         PersonContactsGroup selectedGroup = groupBox.getSelectionModel().getSelectedItem();
         groupIndex.setValue(mainApp.getGroupData().indexOf(selectedGroup));
     }
-
 
     /**
      * Установка главной сцена для диалогового окна
@@ -78,11 +80,17 @@ public class AddPersonContactToGroupDialogController {
         groupBox.setItems(mainApp.getGroupData().sorted(Comparator.comparing(Object::toString)));
     }
 
+    /**
+     * Закрывает окно при нажатии на Add
+     */
     @FXML
     private void handleAdd() {
         dialogStage.close();
     }
 
+    /**
+     * Закрывае окно при нажатии на Close, сбрасывает индекс группы на "0"
+     */
     @FXML
     private void handleClose() {
         groupIndex.setValue(0);

@@ -4,10 +4,14 @@ import contacts.MainApp;
 import contacts.models.EmailUtil;
 import contacts.models.PersonContact;
 import contacts.models.PersonContactsGroup;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 public class PersonContactOverviewController {
     @FXML
@@ -84,6 +88,8 @@ public class PersonContactOverviewController {
             lastNameLabel.setText(contact.getLastName());
             telephoneLabel.setText(contact.getPhoneNumber());
             personEmailLabel.setText(EmailUtil.format(contact.getPersonEmail()));
+            // Вывод ID контакта в консоль, для теста
+            System.out.println(contact.getId());
         } else {
             firstNameLabel.setText("");
             lastNameLabel.setText("");
@@ -99,7 +105,18 @@ public class PersonContactOverviewController {
      */
     private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
-            personContactTable.setItems(contactGroup.getPersonContactsList());
+            if (!contactGroup.equals(mainApp.getGroupData().get(0))) {
+                ObservableList<PersonContact> showList = FXCollections.observableArrayList();
+                List<Long> tempList = new ArrayList<>(contactGroup.getPersonContactsList());
+                for (Long id : tempList) {
+                    for (PersonContact p : mainApp.getContactData()) {
+                        if (p.getId().equals(id)) {
+                            showList.add(p);
+                        }
+                    }
+                }
+                personContactTable.setItems(showList);
+            } else personContactTable.setItems(mainApp.getContactData());
         }
     }
 
@@ -110,8 +127,9 @@ public class PersonContactOverviewController {
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        personContactTable.setItems(mainApp.getGroupData().get(0).getPersonContactsList());
+        personContactTable.setItems(mainApp.getContactData());
         groupBox.setItems(mainApp.getGroupData().sorted(Comparator.comparing(Object::toString)));
+        groupBox.getSelectionModel().selectFirst();
     }
 
     /**
@@ -143,7 +161,7 @@ public class PersonContactOverviewController {
         boolean isOkClicked = mainApp.showPersonContactEditDialog(tempContact);
 
         if (isOkClicked) {
-            mainApp.getGroupData().get(0).getPersonContactsList().add(tempContact);
+            mainApp.getContactData().add(tempContact);
         }
     }
 
@@ -176,9 +194,9 @@ public class PersonContactOverviewController {
     private void handleAddToGroup() {
         PersonContact selectedContact = personContactTable.getSelectionModel().getSelectedItem();
         int selectedGroup = mainApp.showContactsToGroupAddingDialog();
-        if (!mainApp.getGroupData().get(selectedGroup).getPersonContactsList().contains(selectedContact)) {
+        if (!mainApp.getGroupData().get(selectedGroup).getPersonContactsList().contains(selectedContact.getId())) {
             if (selectedGroup > 0) {
-                mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact);
+                mainApp.getGroupData().get(selectedGroup).getPersonContactsList().add(selectedContact.getId());
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);

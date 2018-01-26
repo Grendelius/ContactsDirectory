@@ -63,47 +63,68 @@ public class RootLayoutController {
         mainApp.getContactData().clear();
         mainApp.getGroupData().clear();
         mainApp.addDefaultsGroups();
-        mainApp.setAppDataFilePath(null);
+//        mainApp.setAppDataFilePath(null);
     }
 
+    /**
+     * Открывает окно для выбора файла с данными
+     */
     @FXML
-    private void handleOpenDirectory() throws Exception {
+    private void handleOpenDirectory() {
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
                 "XM: files (*.xml)", "*.xml");
         fc.getExtensionFilters().add(filter);
 
-        File file = fc.showOpenDialog(mainApp.getPrimaryStage());
+        fc.setTitle("Выберите файл с контактами: ");
+        File file1 = fc.showOpenDialog(mainApp.getPrimaryStage());
+        fc.setTitle("Выберите файл с группами контактов: ");
+        File file2 = fc.showOpenDialog(mainApp.getPrimaryStage());
 
-        if (file != null) {
-            mainApp.loadDataFromFile(file);
+        if (file1 != null && file2 != null) {
+            mainApp.loadDataFromFiles(file1, file2);
         }
 
     }
 
+    /**
+     * Сохраняет данные в файл
+     */
     @FXML
-    private void handleSaveDirectory() throws Exception {
-        File file = mainApp.getAppDataFilePath();
-
-        if (file != null) {
-            mainApp.saveDataToFile(file);
-        } else handleSaveAs();
+    private void handleSaveDirectory() {
+//        File file1 = mainApp.getAppDataFilePath();
+//        File file2 = mainApp.getAppDataFilePath();
+//
+//        if (file1 != null && file2 != null) {
+//            mainApp.saveContactsDataToFile(file1);
+//            mainApp.saveGroupsDataToFile(file2);
+//        } else handleSaveAs();
+        handleSaveAs();
     }
 
+    /**
+     * Открывает окно для выбора файла/каталога для сохранения данных
+     */
     @FXML
-    private void handleSaveAs() throws Exception {
+    private void handleSaveAs() {
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter(
                 "XM: files (*.xml)", "*.xml");
         fc.getExtensionFilters().add(filter);
 
-        File file = fc.showSaveDialog(mainApp.getPrimaryStage());
+        fc.setTitle("Укажите файл с контактами: ");
+        File file1 = fc.showSaveDialog(mainApp.getPrimaryStage());
+        fc.setTitle("Укажите файл с группами контактов: ");
+        File file2 = fc.showSaveDialog(mainApp.getPrimaryStage());
 
-        if (file != null) {
-            if (!file.getPath().endsWith(".xml")) {
-                file = new File(file.getPath() + ".xml");
+        if (file1 != null && file2 != null) {
+            if (!file1.getPath().endsWith(".xml") && !file2.getPath().endsWith(".xml")) {
+                file1 = new File(file1.getPath() + ".xml");
+                file2 = new File(file2.getPath() + ".xml");
+
             }
-            mainApp.saveDataToFile(file);
+            mainApp.saveContactsDataToFile(file1);
+            mainApp.saveGroupsDataToFile(file2);
         }
     }
 

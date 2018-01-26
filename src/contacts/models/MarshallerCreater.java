@@ -1,10 +1,13 @@
 package contacts.models;
 
+import contacts.MainApp;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 public class MarshallerCreater {
+    private MainApp mainApp;
 
     /**
      * Создает маршаллинг для одного из двух классов моделей
@@ -12,7 +15,7 @@ public class MarshallerCreater {
      * @return marshaller object
      * @throws Exception
      */
-    public static Marshaller createMarshall(Class c) {
+    public Marshaller createMarshall(Class c) {
         JAXBContext context = null;
         try {
             if (c.equals(PersonContactWrapper.class)) {
@@ -41,7 +44,7 @@ public class MarshallerCreater {
      * @return unmarshaller object
      * @throws Exception
      */
-    public static Unmarshaller createUnmarshall(Class c) {
+    public Unmarshaller createUnmarshall(Class c) {
         JAXBContext context = null;
         try {
             if (c.equals(PersonContactWrapper.class)) {
@@ -60,4 +63,5 @@ public class MarshallerCreater {
             return null;
         }
     }
+
 }

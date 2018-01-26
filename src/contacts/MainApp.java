@@ -1,10 +1,7 @@
 package contacts;
 
 import contacts.controllers.*;
-import contacts.models.ContactsGroupWrapper;
-import contacts.models.MarshallerCreater;
-import contacts.models.PersonContact;
-import contacts.models.PersonContactsGroup;
+import contacts.models.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,10 +18,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-import java.util.prefs.Preferences;
 
 public class MainApp extends Application {
     private Stage primaryStage;
@@ -34,6 +28,9 @@ public class MainApp extends Application {
 
     public MainApp() {
         addDefaultsGroups();
+//        List<Long> tempList = new ArrayList<>();
+//        this.getContactData().forEach(c -> tempList.add(c.getId()));
+//        this.getGroupData().get(0).getPersonContactsList().addAll(tempList);
     }
 
     public static void main(String[] args) {
@@ -41,10 +38,14 @@ public class MainApp extends Application {
     }
 
     public void addDefaultsGroups() {
-        getGroupData().add(0, new PersonContactsGroup("Все"));
-        getGroupData().add(new PersonContactsGroup("Семья"));
-        getGroupData().add(new PersonContactsGroup("Друзья"));
-        getGroupData().add(new PersonContactsGroup("Коллеги"));
+        getGroupData().add(0, new PersonContactsGroup(" --- "));
+        getGroupData().add(1, new PersonContactsGroup("Семья"));
+        getGroupData().add(2, new PersonContactsGroup("Друзья"));
+        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
+        this.contactData.add(new PersonContact("Andrei", "Tolkachev", "22", "mail@mail.ru"));
+        this.contactData.add(new PersonContact("Andrei2", "Tolkachev2", "22", "mail@mail.ru"));
+        this.contactData.add(new PersonContact("Andrei3", "Tolkachev3", "22", "mail@mail.ru"));
+        this.contactData.add(new PersonContact("Andrei4", "Tolkachev4", "22", "mail@mail.ru"));
     }
 
     /**
@@ -73,7 +74,7 @@ public class MainApp extends Application {
     /**
      * Инициализация корневого макета
      */
-    private void initRootLayout() throws Exception {
+    private void initRootLayout() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("views/RootLayout.fxml"));
             rootLayout = loader.load();
@@ -87,11 +88,11 @@ public class MainApp extends Application {
             e.getStackTrace();
         }
 
-        File contactsFile = getAppDataFilePath();
-
-        if (contactsFile != null) {
-            loadDataFromFile(contactsFile);
-        }
+//        File contactsFile = getAppDataFilePath();
+//
+//        if (contactsFile != null) {
+//            loadDataFromFile(contactsFile);
+//        }
     }
 
     /**
@@ -249,85 +250,120 @@ public class MainApp extends Application {
      *
      * @return
      */
-    public File getAppDataFilePath() {
-        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
-        String filePath = prefs.get("filePath", null);
-        if (filePath != null) {
-            return new File(filePath);
-        } else return null;
-    }
+//    public File getAppDataFilePath() {
+//        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+//        String filePath = prefs.get("filePath", null);
+//        if (filePath != null) {
+//            return new File(filePath);
+//        } else return null;
+//    }
+//
+//    /**
+//     * Устанавливает путь к файлу с сохраненными данными.
+//     *
+//     * @param file - файл в директории сохранения
+//     */
+//    public void setAppDataFilePath(File file) {
+//        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
+//        if (file != null) {
+//            prefs.put("filePath", file.getPath());
+//            primaryStage.setTitle("Справочник контактов - " + file.getName());
+//        } else {
+//            prefs.remove("filePath");
+//            primaryStage.setTitle("Справочник контактов");
+//        }
+//    }
+
+    // TODO скорректировать согласно изменения модели класса контакта, группы
 
     /**
-     * Устанавливает путь к файлу с сохраненными данными.
+     * Сохраняет данные о контактах в файл
      *
-     * @param file - файл в директории сохранения
+     * @param contactsFile - файл с контактами
      */
-    public void setAppDataFilePath(File file) {
-        Preferences prefs = Preferences.userNodeForPackage(this.getClass());
-        if (file != null) {
-            prefs.put("filePath", file.getPath());
-            primaryStage.setTitle("Справочник контактов - " + file.getName());
-        } else {
-            prefs.remove("filePath");
-            primaryStage.setTitle("Справочник контактов");
-        }
-    }
-
-    /**
-     * Сохранение данных справочника в файл.
-     *
-     * @param file - файл
-     * @throws IOException
-     */
-    public void saveDataToFile(File file) {
+    public void saveContactsDataToFile(File contactsFile) {
         try {
-            Marshaller marshaller = MarshallerCreater.createMarshall(ContactsGroupWrapper.class);
-            ContactsGroupWrapper groupsWrapper = new ContactsGroupWrapper();
+            MarshallerCreater mc = new MarshallerCreater();
+            Marshaller m1 = mc.createMarshall(PersonContactWrapper.class);
+            PersonContactWrapper contactsWrapper = new PersonContactWrapper();
 
-            groupsWrapper.setGroups(groupData);
-            assert marshaller != null;
-            marshaller.marshal(groupsWrapper, file);
+            contactsWrapper.setContacts(contactData);
+            assert m1 != null;
+            m1.marshal(contactsWrapper, contactsFile);
 
-            setAppDataFilePath(file);
+//            setAppDataFilePath(contactsFile);
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Невозможно сохранить данные");
-            alert.setContentText("Нельзя загрузить данные в файл: \n" + file.getPath());
+            alert.setContentText("Нельзя загрузить данные в файл: \n" + contactsFile.getPath());
 
             alert.showAndWait();
         }
     }
 
     /**
-     * Загрузка данных справочника из файла.
+     * Сохраняет данные о группах в файл
      *
-     * @param file - файл
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @param groupsFile - файл с группами
      */
-    public void loadDataFromFile(File file) {
-        Set<PersonContact> tempList = new HashSet<>();
+    public void saveGroupsDataToFile(File groupsFile) {
         try {
-            Unmarshaller unmarshaller = MarshallerCreater.createUnmarshall(ContactsGroupWrapper.class);
+            MarshallerCreater mc = new MarshallerCreater();
+            Marshaller m2 = mc.createMarshall(ContactsGroupWrapper.class);
+            ContactsGroupWrapper groupsWrapper = new ContactsGroupWrapper();
+
+            groupsWrapper.setGroups(groupData);
+            assert m2 != null;
+            m2.marshal(groupsWrapper, groupsFile);
+
+//            setAppDataFilePath(groupsFile);
+
+        } catch (NullPointerException | JAXBException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Невозможно сохранить данные");
+            alert.setContentText("Нельзя загрузить данные в файл: \n" + groupsFile.getPath());
+
+            alert.showAndWait();
+        }
+    }
+
+    // TODO скорректировать согласно изменения модели класса контакта, группы
+
+    /**
+     * Загружает данные из файлов
+     *
+     * @param contactsFile - файл с контактами
+     * @param groupsFile   - файл с группами контактов
+     */
+    public void loadDataFromFiles(File contactsFile, File groupsFile) {
+        try {
+            MarshallerCreater mc1 = new MarshallerCreater();
+            MarshallerCreater mc2 = new MarshallerCreater();
+            Unmarshaller um1 = mc1.createUnmarshall(ContactsGroupWrapper.class);
+            Unmarshaller um2 = mc2.createUnmarshall(PersonContactWrapper.class);
+
+            PersonContactWrapper contactsWrapper =
+                    (PersonContactWrapper) Objects.requireNonNull(um1).unmarshal(contactsFile);
             ContactsGroupWrapper groupsWrapper =
-                    (ContactsGroupWrapper) Objects.requireNonNull(unmarshaller).unmarshal(file);
+                    (ContactsGroupWrapper) Objects.requireNonNull(um2).unmarshal(groupsFile);
 
             contactData.clear();
             groupData.clear();
 
+            contactData.addAll(contactsWrapper.getContacts());
             groupData.addAll(groupsWrapper.getGroups());
-            this.getGroupData().forEach(group -> tempList.addAll(group.getPersonContactsList()));
-            contactData.addAll(tempList);
 
-            setAppDataFilePath(file);
+//            setAppDataFilePath(contactsFile);
+//            setAppDataFilePath(groupsFile);
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Невозможно найти файл с данными");
-            alert.setContentText("Нельзя загрузить данные из файла:\n" + file.getPath());
+            alert.setContentText("Нельзя загрузить данные из файла:\n" + contactsFile.getPath());
 
             alert.showAndWait();
         }
