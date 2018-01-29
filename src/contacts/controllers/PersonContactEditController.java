@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 /**
- * Диалоговое окно для изменения информации о контакте
+ * Р”РёР°Р»РѕРіРѕРІРѕРµ РѕРєРЅРѕ РґР»СЏ РёР·РјРµРЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРЅС‚Р°РєС‚Рµ
  */
 public class PersonContactEditController {
     @FXML
@@ -30,18 +30,18 @@ public class PersonContactEditController {
     }
 
     /**
-     * Установка связи класса - контроллера со Stage для диалогового макета из MainApp
+     * РЈСЃС‚Р°РЅРѕРІРєР° СЃРІСЏР·Рё РєР»Р°СЃСЃР° - РєРѕРЅС‚СЂРѕР»Р»РµСЂР° СЃРѕ Stage РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РјР°РєРµС‚Р° РёР· MainApp
      *
-     * @param stage - Stage в MainApp классе
+     * @param stage - Stage РІ MainApp РєР»Р°СЃСЃРµ
      */
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
     }
 
     /**
-     * Указывает контакт, данные для которого должны быть изменены
+     * РЈРєР°Р·С‹РІР°РµС‚ РєРѕРЅС‚Р°РєС‚, РґР°РЅРЅС‹Рµ РґР»СЏ РєРѕС‚РѕСЂРѕРіРѕ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅС‹
      *
-     * @param personContact - выбранный контакт новый/для реактирования
+     * @param personContact - РІС‹Р±СЂР°РЅРЅС‹Р№ РєРѕРЅС‚Р°РєС‚ РЅРѕРІС‹Р№/РґР»СЏ СЂРµР°РєС‚РёСЂРѕРІР°РЅРёСЏ
      */
     public void setPersonContact(PersonContact personContact) {
         this.personContact = personContact;
@@ -58,8 +58,8 @@ public class PersonContactEditController {
     }
 
     /**
-     * Сохранение введенных данных из полей в экземпляр класса PersonContact
-     * по нажатию кнопки OK
+     * РЎРѕС…СЂР°РЅРµРЅРёРµ РІРІРµРґРµРЅРЅС‹С… РґР°РЅРЅС‹С… РёР· РїРѕР»РµР№ РІ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° PersonContact
+     * РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё OK
      */
     @FXML
     private void handleOk() {
@@ -75,7 +75,7 @@ public class PersonContactEditController {
     }
 
     /**
-     * Закрытие сцены (dialogStage) с диалоговым окном по нажатию кнопки Cancel
+     * Р—Р°РєСЂС‹С‚РёРµ СЃС†РµРЅС‹ (dialogStage) СЃ РґРёР°Р»РѕРіРѕРІС‹Рј РѕРєРЅРѕРј РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё Cancel
      */
     @FXML
     private void handleCancel() {
@@ -83,7 +83,7 @@ public class PersonContactEditController {
     }
 
     /**
-     * Валидация ввода данных в редактируемые поля
+     * Р’Р°Р»РёРґР°С†РёСЏ РІРІРѕРґР° РґР°РЅРЅС‹С… РІ СЂРµРґР°РєС‚РёСЂСѓРµРјС‹Рµ РїРѕР»СЏ
      *
      * @return boolean;
      */
@@ -91,19 +91,19 @@ public class PersonContactEditController {
         String errMsg = "";
 
         if (firstNameField.getText() == null || firstNameField.getLength() == 0)
-            errMsg += "Некоректно введено имя контакта\n";
+            errMsg += "РќРµРєРѕСЂРµРєС‚РЅРѕ РІРІРµРґРµРЅРѕ РёРјСЏ РєРѕРЅС‚Р°РєС‚Р°\n";
 
         if (lastNameField.getText() == null || lastNameField.getLength() == 0)
-            errMsg += "Некоретно введена фамилия контакта\n";
+            errMsg += "РќРµРєРѕСЂРµС‚РЅРѕ РІРІРµРґРµРЅР° С„Р°РјРёР»РёСЏ РєРѕРЅС‚Р°РєС‚Р°\n";
 
         if (telNumField.getText() == null || telNumField.getLength() == 0)
-            errMsg += "Некорретно введен номер телефона\n";
+            errMsg += "РќРµРєРѕСЂСЂРµС‚РЅРѕ РІРІРµРґРµРЅ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°\n";
 
         if (emailField.getText() == null || emailField.getLength() == 0) {
-            errMsg += "Поле e-mail не должно быть пустым";
+            errMsg += "РџРѕР»Рµ e-mail РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј";
         } else {
             if (!(EmailUtil.validate(emailField.getText()))) {
-                errMsg += "Некорретный формат e-mail адреса.\nИспользуйте формат: name@domain.com\n";
+                errMsg += "РќРµРєРѕСЂСЂРµС‚РЅС‹Р№ С„РѕСЂРјР°С‚ e-mail Р°РґСЂРµСЃР°.\nРСЃРїРѕР»СЊР·СѓР№С‚Рµ С„РѕСЂРјР°С‚: name@domain.com\n";
             }
         }
 
@@ -112,8 +112,8 @@ public class PersonContactEditController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("Некорректные данные");
-            alert.setHeaderText("Пожалуйста проверьте следующие поля:");
+            alert.setTitle("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ");
+            alert.setHeaderText("РџРѕР¶Р°Р»СѓР№СЃС‚Р° РїСЂРѕРІРµСЂСЊС‚Рµ СЃР»РµРґСѓСЋС‰РёРµ РїРѕР»СЏ:");
             alert.setContentText(errMsg);
 
             alert.showAndWait();
