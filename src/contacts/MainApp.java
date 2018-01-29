@@ -62,7 +62,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Справочник контактов");
-        this.primaryStage.getIcons().add(new Image("contacts/resources/images/contacts.png"));
+        this.primaryStage.getIcons().add(new Image("resources/images/contacts.png"));
         initRootLayout();
         showPersonContactOverview();
     }
@@ -128,7 +128,7 @@ public class MainApp extends Application {
             // Создание главной сцены для диалогового окна и присваивание её к корневому макету BorderPane
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Редактирование контакта");
-            dialogStage.getIcons().add(new Image("contacts/resources/images/cont_edit.png"));
+            dialogStage.getIcons().add(new Image("resources/images/cont_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -162,7 +162,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Добавление группы контактов");
-            dialogStage.getIcons().add(new Image("contacts/resources/images/group_add.png"));
+            dialogStage.getIcons().add(new Image("resources/images/group_add.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -191,7 +191,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Управление группами контактов");
-            dialogStage.getIcons().add(new Image("contacts/resources/images/group_edit.png"));
+            dialogStage.getIcons().add(new Image("resources/images/group_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -219,7 +219,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Добавление в группу");
-            dialogStage.getIcons().add(new Image("contacts/resources/images/add_to_group.png"));
+            dialogStage.getIcons().add(new Image("resources/images/add_to_group.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -250,7 +250,7 @@ public class MainApp extends Application {
     /**
      * Возвращает путь к последнему открытому файлу
      *
-     * @return - fileType
+     * @return
      */
     public File getAppDataFilePath(String fileType) {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
