@@ -14,7 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Класс - контролле панель управления контактами
+ * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»Рµ РїР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ РєРѕРЅС‚Р°РєС‚Р°РјРё
  */
 public class PersonContactOverviewController {
     @FXML
@@ -35,15 +35,15 @@ public class PersonContactOverviewController {
     @FXML
     private Label personEmailLabel;
 
-    // Ссылка на главное приложение
-    // связывает логику работы элементов GridPane с главной сценой Stage внутри MainApp
+    // РЎСЃС‹Р»РєР° РЅР° РіР»Р°РІРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ
+    // СЃРІСЏР·С‹РІР°РµС‚ Р»РѕРіРёРєСѓ СЂР°Р±РѕС‚С‹ СЌР»РµРјРµРЅС‚РѕРІ GridPane СЃ РіР»Р°РІРЅРѕР№ СЃС†РµРЅРѕР№ Stage РІРЅСѓС‚СЂРё MainApp
     private MainApp mainApp;
 
     /**
-     * Заполняет выпадающий список названиями групп контактов
+     * Р—Р°РїРѕР»РЅСЏРµС‚ РІС‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РЅР°Р·РІР°РЅРёСЏРјРё РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
      *
-     * @param param - визуальный список ячеек групп контактов
-     * @return новая ячейка - наименование группы контактов
+     * @param param - РІРёР·СѓР°Р»СЊРЅС‹Р№ СЃРїРёСЃРѕРє СЏС‡РµРµРє РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
+     * @return РЅРѕРІР°СЏ СЏС‡РµР№РєР° - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
         return new ListCell<PersonContactsGroup>() {
@@ -57,41 +57,41 @@ public class PersonContactOverviewController {
 
     @FXML
     private void initialize() {
-        // Инициализация таблицы контактов с двумя столбцами.
+        // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ С‚Р°Р±Р»РёС†С‹ РєРѕРЅС‚Р°РєС‚РѕРІ СЃ РґРІСѓРјСЏ СЃС‚РѕР»Р±С†Р°РјРё.
         fioColumn.setCellValueFactory(cellData -> cellData.getValue().fullNameProperty());
         telColumn.setCellValueFactory(cellData -> cellData.getValue().phoneNumberProperty());
 
-        // Инициализация выпадающего списка
+        // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°
         groupBox.setCellFactory(PersonContactOverviewController::call);
 
-        // Очистка информации о контакте.
+        // РћС‡РёСЃС‚РєР° РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРЅС‚Р°РєС‚Рµ.
         showPersonContactDetails(null);
 
-        // Следим за выбором, и при изменении
-        // отображаем дополнительную информацию о контакте.
+        // РЎР»РµРґРёРј Р·Р° РІС‹Р±РѕСЂРѕРј, Рё РїСЂРё РёР·РјРµРЅРµРЅРёРё
+        // РѕС‚РѕР±СЂР°Р¶Р°РµРј РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РєРѕРЅС‚Р°РєС‚Рµ.
         personContactTable.getSelectionModel().selectedItemProperty().addListener(
                 ((ov, oldValue, newValue) -> showPersonContactDetails(newValue)));
 
-        // Следим за выбором, и при изменении
-        // отображаем  список контактов в таблице контактов
+        // РЎР»РµРґРёРј Р·Р° РІС‹Р±РѕСЂРѕРј, Рё РїСЂРё РёР·РјРµРЅРµРЅРёРё
+        // РѕС‚РѕР±СЂР°Р¶Р°РµРј  СЃРїРёСЃРѕРє РєРѕРЅС‚Р°РєС‚РѕРІ РІ С‚Р°Р±Р»РёС†Рµ РєРѕРЅС‚Р°РєС‚РѕРІ
         groupBox.getSelectionModel().selectedItemProperty().addListener(
                 (ov, oldValue, newValue) -> showPersonContactsOfSelectedGroup(newValue));
     }
 
     /**
-     * Показывает расширенную информацию о выбранном контакте
+     * РџРѕРєР°Р·С‹РІР°РµС‚ СЂР°СЃС€РёСЂРµРЅРЅСѓСЋ РёРЅС„РѕСЂРјР°С†РёСЋ Рѕ РІС‹Р±СЂР°РЅРЅРѕРј РєРѕРЅС‚Р°РєС‚Рµ
      *
-     * @param contact - экземпляр класса PersonContact
+     * @param contact - СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° PersonContact
      */
     private void showPersonContactDetails(PersonContact contact) {
-        // Заполняем лэйбы значениями полей экземпляром PersonContact
-        // показ расширенной информации о контакте
+        // Р—Р°РїРѕР»РЅСЏРµРј Р»СЌР№Р±С‹ Р·РЅР°С‡РµРЅРёСЏРјРё РїРѕР»РµР№ СЌРєР·РµРјРїР»СЏСЂРѕРј PersonContact
+        // РїРѕРєР°Р· СЂР°СЃС€РёСЂРµРЅРЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРЅС‚Р°РєС‚Рµ
         if (contact != null) {
             firstNameLabel.setText(contact.getFirstName());
             lastNameLabel.setText(contact.getLastName());
             telephoneLabel.setText(contact.getPhoneNumber());
             personEmailLabel.setText(EmailUtil.format(contact.getPersonEmail()));
-            // Вывод ID контакта в консоль, для теста
+            // Р’С‹РІРѕРґ ID РєРѕРЅС‚Р°РєС‚Р° РІ РєРѕРЅСЃРѕР»СЊ, РґР»СЏ С‚РµСЃС‚Р°
             System.out.println(contact.getId());
         } else {
             firstNameLabel.setText("");
@@ -102,9 +102,9 @@ public class PersonContactOverviewController {
     }
 
     /**
-     * Показ списка контактов выбранной группы
+     * РџРѕРєР°Р· СЃРїРёСЃРєР° РєРѕРЅС‚Р°РєС‚РѕРІ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹
      *
-     * @param contactGroup - группа контактов, выбранная из списка
+     * @param contactGroup - РіСЂСѓРїРїР° РєРѕРЅС‚Р°РєС‚РѕРІ, РІС‹Р±СЂР°РЅРЅР°СЏ РёР· СЃРїРёСЃРєР°
      */
     private void showPersonContactsOfSelectedGroup(PersonContactsGroup contactGroup) {
         if (contactGroup != null) {
@@ -124,9 +124,9 @@ public class PersonContactOverviewController {
     }
 
     /**
-     * Вызов главного приложения
+     * Р’С‹Р·РѕРІ РіР»Р°РІРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
      *
-     * @param mainApp - объект класса MainApp
+     * @param mainApp - РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° MainApp
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -136,8 +136,8 @@ public class PersonContactOverviewController {
     }
 
     /**
-     * Удаление выбранного контакта из таблицы
-     * с предупреждением
+     * РЈРґР°Р»РµРЅРёРµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РєРѕРЅС‚Р°РєС‚Р° РёР· С‚Р°Р±Р»РёС†С‹
+     * СЃ РїСЂРµРґСѓРїСЂРµР¶РґРµРЅРёРµРј
      */
     @FXML
     public void handleDeleteContact() {
@@ -147,16 +147,16 @@ public class PersonContactOverviewController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Внимание!");
-            alert.setHeaderText("Отсутствует контакт для выбора");
-            alert.setContentText("Пожалуйста выберите контакт в таблице");
+            alert.setTitle("Р’РЅРёРјР°РЅРёРµ!");
+            alert.setHeaderText("РћС‚СЃСѓС‚СЃС‚РІСѓРµС‚ РєРѕРЅС‚Р°РєС‚ РґР»СЏ РІС‹Р±РѕСЂР°");
+            alert.setContentText("РџРѕР¶Р°Р»СѓР№СЃС‚Р° РІС‹Р±РµСЂРёС‚Рµ РєРѕРЅС‚Р°РєС‚ РІ С‚Р°Р±Р»РёС†Рµ");
 
             alert.showAndWait();
         }
     }
 
     /**
-     * Создание нового контакта по нажатию кнопки New
+     * РЎРѕР·РґР°РЅРёРµ РЅРѕРІРѕРіРѕ РєРѕРЅС‚Р°РєС‚Р° РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё New
      */
     @FXML
     private void handleNewPersonContact() {
@@ -169,7 +169,7 @@ public class PersonContactOverviewController {
     }
 
     /**
-     * Редактирование выбранного контакта по нажатию кнопки Edit
+     * Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РІС‹Р±СЂР°РЅРЅРѕРіРѕ РєРѕРЅС‚Р°РєС‚Р° РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё Edit
      */
     @FXML
     private void handleEditPersonContact() {
@@ -182,16 +182,16 @@ public class PersonContactOverviewController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Внимание!");
-            alert.setHeaderText("Нет выбранных контактов");
-            alert.setContentText("Пожалуйста выберите контакт из таблицы");
+            alert.setTitle("Р’РЅРёРјР°РЅРёРµ!");
+            alert.setHeaderText("РќРµС‚ РІС‹Р±СЂР°РЅРЅС‹С… РєРѕРЅС‚Р°РєС‚РѕРІ");
+            alert.setContentText("РџРѕР¶Р°Р»СѓР№СЃС‚Р° РІС‹Р±РµСЂРёС‚Рµ РєРѕРЅС‚Р°РєС‚ РёР· С‚Р°Р±Р»РёС†С‹");
 
             alert.showAndWait();
         }
     }
 
     /**
-     * Добавляет выбранный контакт к указанной группе из окна выбора групп
+     * Р”РѕР±Р°РІР»СЏРµС‚ РІС‹Р±СЂР°РЅРЅС‹Р№ РєРѕРЅС‚Р°РєС‚ Рє СѓРєР°Р·Р°РЅРЅРѕР№ РіСЂСѓРїРїРµ РёР· РѕРєРЅР° РІС‹Р±РѕСЂР° РіСЂСѓРїРї
      */
     @FXML
     private void handleAddToGroup() {
@@ -204,9 +204,9 @@ public class PersonContactOverviewController {
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("Внимание!");
-            alert.setHeaderText("Дубликат контакта");
-            alert.setContentText("Такой контакт уже присутствует в выбранной группе");
+            alert.setTitle("Р’РЅРёРјР°РЅРёРµ!");
+            alert.setHeaderText("Р”СѓР±Р»РёРєР°С‚ РєРѕРЅС‚Р°РєС‚Р°");
+            alert.setContentText("РўР°РєРѕР№ РєРѕРЅС‚Р°РєС‚ СѓР¶Рµ РїСЂРёСЃСѓС‚СЃС‚РІСѓРµС‚ РІ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїРµ");
 
             alert.showAndWait();
         }

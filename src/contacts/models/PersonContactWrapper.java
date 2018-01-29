@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * Класс - обертка для списка контактов
+ * Класс - обертка для содержимого листа контактов
  */
 @XmlRootElement(name = "contacts")
 public class PersonContactWrapper {
