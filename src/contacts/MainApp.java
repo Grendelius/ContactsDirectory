@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
@@ -35,6 +36,13 @@ public class MainApp extends Application {
         launch(args);
     }
 
+    public void addDefaultsGroups() {
+        getGroupData().add(0, new PersonContactsGroup(" --- "));
+        getGroupData().add(1, new PersonContactsGroup("Семья"));
+        getGroupData().add(2, new PersonContactsGroup("Друзья"));
+        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
+    }
+
     /**
      * Возвращает данные о контактах в виде наблюдаемого списка
      *
@@ -54,6 +62,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Справочник контактов");
+        this.primaryStage.getIcons().add(new Image("contacts/resources/images/contacts.png"));
         initRootLayout();
         showPersonContactOverview();
     }
@@ -119,6 +128,7 @@ public class MainApp extends Application {
             // Создание главной сцены для диалогового окна и присваивание её к корневому макету BorderPane
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Редактирование контакта");
+            dialogStage.getIcons().add(new Image("contacts/resources/images/cont_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -152,6 +162,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Добавление группы контактов");
+            dialogStage.getIcons().add(new Image("contacts/resources/images/group_add.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -180,6 +191,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Управление группами контактов");
+            dialogStage.getIcons().add(new Image("contacts/resources/images/group_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -207,6 +219,7 @@ public class MainApp extends Application {
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Добавление в группу");
+            dialogStage.getIcons().add(new Image("contacts/resources/images/add_to_group.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
@@ -354,12 +367,5 @@ public class MainApp extends Application {
 
             alert.showAndWait();
         }
-    }
-
-    public void addDefaultsGroups() {
-        getGroupData().add(0, new PersonContactsGroup(" --- "));
-        getGroupData().add(1, new PersonContactsGroup("Семья"));
-        getGroupData().add(2, new PersonContactsGroup("Друзья"));
-        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
     }
 }

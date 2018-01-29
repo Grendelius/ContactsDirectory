@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 /**
- * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»РµСЂ РѕРєРЅР° СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РєРѕРЅС‚Р°РєС‚Р°
+ * Диалоговое окно для изменения информации о контакте
  */
 public class PersonContactEditController {
     @FXML
@@ -25,39 +25,23 @@ public class PersonContactEditController {
     private PersonContact personContact;
     private boolean OkClicked;
 
-//    /**
-//     * РћРіСЂР°РЅРёС‡РёРІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІРІРµРґРµРЅС‹С… СЃРёРјРІРѕР»РѕРІ РІ СѓРєР°Р·Р°РЅРЅРѕРµ РїРѕР»Рµ
-//     * РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р·Р°РґР°РЅРЅРѕР№ РґР»РёРЅРЅРѕР№ С‚РµРєСЃС‚Р°
-//     *
-//     * @param tf        - С‚РµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ
-//     * @param maxLength - РїРѕРєР°Р·Р°С‚РµР»СЊ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅС‹
-//     */
-////    private static void addTextLimiter(final TextField tf, final int maxLength) {
-////        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-////            if (tf.getText().length() > maxLength) {
-////                String s = tf.getText().substring(0, maxLength);
-////                tf.setText(s);
-////            }
-////        });
-////    }
-
     @FXML
     private void initialize() {
     }
 
     /**
-     * РЈСЃС‚Р°РЅРѕРІРєР° СЃРІСЏР·Рё РєР»Р°СЃСЃР° - РєРѕРЅС‚СЂРѕР»Р»РµСЂР° СЃРѕ Stage РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РјР°РєРµС‚Р° РёР· MainApp
+     * Установка связи класса - контроллера со Stage для диалогового макета из MainApp
      *
-     * @param stage - Stage РІ MainApp РєР»Р°СЃСЃРµ
+     * @param stage - Stage в MainApp классе
      */
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
     }
 
     /**
-     * РЈРєР°Р·С‹РІР°РµС‚ РєРѕРЅС‚Р°РєС‚, РґР°РЅРЅС‹Рµ РґР»СЏ РєРѕС‚РѕСЂРѕРіРѕ РґРѕР»Р¶РЅС‹ Р±С‹С‚СЊ РёР·РјРµРЅРµРЅС‹
+     * Указывает контакт, данные для которого должны быть изменены
      *
-     * @param personContact - РІС‹Р±СЂР°РЅРЅС‹Р№ РєРѕРЅС‚Р°РєС‚ РЅРѕРІС‹Р№/РґР»СЏ СЂРµР°РєС‚РёСЂРѕРІР°РЅРёСЏ
+     * @param personContact - выбранный контакт новый/для реактирования
      */
     public void setPersonContact(PersonContact personContact) {
         this.personContact = personContact;
@@ -74,8 +58,8 @@ public class PersonContactEditController {
     }
 
     /**
-     * РЎРѕС…СЂР°РЅРµРЅРёРµ РІРІРµРґРµРЅРЅС‹С… РґР°РЅРЅС‹С… РёР· РїРѕР»РµР№ РІ СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° PersonContact
-     * РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё OK
+     * Сохранение введенных данных из полей в экземпляр класса PersonContact
+     * по нажатию кнопки OK
      */
     @FXML
     private void handleOk() {
@@ -91,7 +75,7 @@ public class PersonContactEditController {
     }
 
     /**
-     * Р—Р°РєСЂС‹С‚РёРµ СЃС†РµРЅС‹ (dialogStage) СЃ РґРёР°Р»РѕРіРѕРІС‹Рј РѕРєРЅРѕРј РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё Cancel
+     * Закрытие сцены (dialogStage) с диалоговым окном по нажатию кнопки Cancel
      */
     @FXML
     private void handleCancel() {
@@ -99,7 +83,7 @@ public class PersonContactEditController {
     }
 
     /**
-     * Р’Р°Р»РёРґР°С†РёСЏ РІРІРѕРґР° РґР°РЅРЅС‹С… РІ СЂРµРґР°РєС‚РёСЂСѓРµРјС‹Рµ РїРѕР»СЏ
+     * Валидация ввода данных в редактируемые поля
      *
      * @return boolean;
      */
@@ -107,19 +91,19 @@ public class PersonContactEditController {
         String errMsg = "";
 
         if (firstNameField.getText() == null || firstNameField.getLength() == 0)
-            errMsg += "РќРµРєРѕСЂРµРєС‚РЅРѕ РІРІРµРґРµРЅРѕ РёРјСЏ РєРѕРЅС‚Р°РєС‚Р°\n";
+            errMsg += "Некоректно введено имя контакта\n";
 
         if (lastNameField.getText() == null || lastNameField.getLength() == 0)
-            errMsg += "РќРµРєРѕСЂРµС‚РЅРѕ РІРІРµРґРµРЅР° С„Р°РјРёР»РёСЏ РєРѕРЅС‚Р°РєС‚Р°\n";
+            errMsg += "Некоретно введена фамилия контакта\n";
 
         if (telNumField.getText() == null || telNumField.getLength() == 0)
-            errMsg += "РќРµРєРѕСЂСЂРµС‚РЅРѕ РІРІРµРґРµРЅ РЅРѕРјРµСЂ С‚РµР»РµС„РѕРЅР°\n";
+            errMsg += "Некорретно введен номер телефона\n";
 
         if (emailField.getText() == null || emailField.getLength() == 0) {
-            errMsg += "РџРѕР»Рµ e-mail РЅРµ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј";
+            errMsg += "Поле e-mail не должно быть пустым";
         } else {
             if (!(EmailUtil.validate(emailField.getText()))) {
-                errMsg += "РќРµРєРѕСЂСЂРµС‚РЅС‹Р№ С„РѕСЂРјР°С‚ e-mail Р°РґСЂРµСЃР°.\nРСЃРїРѕР»СЊР·СѓР№С‚Рµ С„РѕСЂРјР°С‚: name@domain.com\n";
+                errMsg += "Некорретный формат e-mail адреса.\nИспользуйте формат: name@domain.com\n";
             }
         }
 
@@ -128,8 +112,8 @@ public class PersonContactEditController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ");
-            alert.setHeaderText("РџРѕР¶Р°Р»СѓР№СЃС‚Р° РїСЂРѕРІРµСЂСЊС‚Рµ СЃР»РµРґСѓСЋС‰РёРµ РїРѕР»СЏ:");
+            alert.setTitle("Некорректные данные");
+            alert.setHeaderText("Пожалуйста проверьте следующие поля:");
             alert.setContentText(errMsg);
 
             alert.showAndWait();

@@ -10,7 +10,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 /**
- * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»РµСЂ РѕРєРЅР° СѓРїСЂР°РІР»РµРЅРёСЏ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ
+ * Класс - контроллер окна управления группами контактов
  */
 public class ContactsGroupEditDialogController {
     @FXML
@@ -26,10 +26,10 @@ public class ContactsGroupEditDialogController {
     private IntegerProperty groupIndex = new SimpleIntegerProperty();
 
     /**
-     * Р—Р°РїРѕР»РЅСЏРµС‚ РІС‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РЅР°Р·РІР°РЅРёСЏРјРё РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Заполняет выпадающий список названиями групп контактов
      *
-     * @param param - РІРёР·СѓР°Р»СЊРЅС‹Р№ СЃРїРёСЃРѕРє СЏС‡РµРµРє РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
-     * @return РЅРѕРІР°СЏ СЏС‡РµР№РєР° - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * @param param - визуальный список ячеек групп контактов
+     * @return новая ячейка - наименование группы контактов
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
         return new ListCell<PersonContactsGroup>() {
@@ -42,24 +42,24 @@ public class ContactsGroupEditDialogController {
     }
 
     /**
-     * РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЌР»РµРјРµРЅС‚РѕРІ РЅР° РІРµР±-С„РѕСЂРјРµ (Р·Р°РїРѕР»РЅРµРЅРёРµ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР° Р·РЅР°С‡РµРЅРёСЏ,
-     * РѕС‚РєР»СЋС‡РµРЅРёРµ РєРЅРѕРїРѕРє РїСЂРё РІС‹Р±РѕСЂРµ РІСЃРµС… РіСЂСѓРїРї)
+     * Инициализация элементов на веб-форме (заполнение выпадающего списка значения,
+     * отключение кнопок при выборе всех групп)
      */
     @FXML
     private void initialize() {
         groupBox.setCellFactory(ContactsGroupEditDialogController::call);
 
-        // РЎР»РµРґРёРј Р·Р° РІС‹Р±РѕСЂРѕРј
-        // РїРѕР»СѓС‡Р°РµРј РёРЅРґРµРєСЃ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹ РёР· РѕР±С‰РµРіРѕ СЃРїРёСЃРєР°
+        // Следим за выбором
+        // получаем индекс выбранной группы из общего списка
         groupBox.getEditor().textProperty().addListener((ov, oldValue, newValue) -> selectContactsGroup());
 
-        // РћС‚РєР»СЋС‡Р°РµРј РєРЅРѕРїРєРё РїСЂРё РїСѓСЃС‚РѕРј РІС‹Р±РѕСЂРµ РёР»Рё РІС‹Р±РѕСЂРµ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ "Р’СЃРµ"
+        // Отключаем кнопки при пустом выборе или выборе группы контактов "Все"
         saveBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
         deleteBtn.disableProperty().bind(Bindings.equal(groupIndex, 0));
     }
 
     /**
-     * РР·РјРµРЅСЏРµС‚ РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Изменяет наименование выбранной группы контактов
      */
     @FXML
     private void handleRenameGroup() {
@@ -72,7 +72,7 @@ public class ContactsGroupEditDialogController {
     }
 
     /**
-     * РЈРґР°Р»СЏРµС‚ РіСЂСѓРїРїСѓ РєРѕРЅС‚Р°РєС‚РѕРІ РёР· РѕР±С‰РµРіРѕ СЃРїРёСЃРєР° РіСЂСѓРїРї
+     * Удаляет группу контактов из общего списка групп
      */
     @FXML
     private void handleDeleteGroup() {
@@ -84,7 +84,7 @@ public class ContactsGroupEditDialogController {
     }
 
     /**
-     * Р—Р°РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ РїРѕ РЅР°Р¶Р°С‚РёСЋ РєРЅРѕРїРєРё Close
+     * Закрывает окно по нажатию кнопки Close
      */
     @FXML
     private void handleClose() {
@@ -92,7 +92,7 @@ public class ContactsGroupEditDialogController {
     }
 
     /**
-     * Р—Р°РїРёСЃС‹РІР°РµС‚ РёРЅРґРµРєСЃ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹ РёР· РѕР±С‰РµРіРѕ СЃРїРёСЃРєР°
+     * Записывает индекс выбранной группы из общего списка
      */
     private void selectContactsGroup() {
         personContactsGroup = groupBox.getSelectionModel().getSelectedItem();
@@ -101,7 +101,7 @@ public class ContactsGroupEditDialogController {
     }
 
     /**
-     * Р’Р°Р»РёРґР°С†РёСЏ РІРІРѕРґР° РґР°РЅРЅС‹С… РІ СЂРµРґР°РєС‚РёСЂСѓРµРјРѕРµ РїРѕР»Рµ
+     * Валидация ввода данных в редактируемое поле
      *
      * @return true/false
      */
@@ -110,10 +110,10 @@ public class ContactsGroupEditDialogController {
         String inputedText = groupBox.getEditor().getText();
 
         if (inputedText == null || inputedText.length() == 0) {
-            errMsg += "РќР°РёРјРµРЅРѕРІР°РЅРёРµ РіСЂСѓРїРїС‹ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј";
+            errMsg += "Наименование группы не может быть пустым";
         } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
                 contactsGroup.getGroupLabel().equalsIgnoreCase(inputedText))) {
-            errMsg += "Р“СЂСѓРїРїР° СЃ РЅР°РёРјРµРЅРѕРІР°РЅРёРµРј " + "\"" + inputedText + "\"" + " СѓР¶Рµ РµСЃС‚СЊ РІ СЃРїРёСЃРєРµ РіСЂСѓРїРї\n";
+            errMsg += "Группа с наименованием " + "\"" + inputedText + "\"" + " уже есть в списке групп\n";
         }
 
         if (errMsg.length() == 0) {
@@ -121,8 +121,8 @@ public class ContactsGroupEditDialogController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ");
-            alert.setHeaderText("РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ: ");
+            alert.setTitle("Некорректные данные");
+            alert.setHeaderText("Обратите внимание: ");
             alert.setContentText(errMsg);
 
             alert.showAndWait();
