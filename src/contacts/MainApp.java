@@ -250,7 +250,7 @@ public class MainApp extends Application {
     /**
      * Возвращает путь к последнему открытому файлу
      *
-     * @return
+     * @return - fileType
      */
     public File getAppDataFilePath(String fileType) {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
