@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="300.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/9.0.1" fx:controller="contacts.controllers.PersonContactOverviewController">
+    <children>
+        <SplitPane dividerPositions="0.29797979797979796" prefHeight="300.0" prefWidth="600.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <TableView fx:id="personContactTable" minWidth="-Infinity" prefHeight="298.0" prefWidth="175.0"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <columns>
+                                <TableColumn fx:id="fioColumn" prefWidth="87.0" text="ФИО"/>
+                                <TableColumn fx:id="telColumn" prefWidth="87.0" sortType="DESCENDING" text="НОМЕР"/>
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                            </columnResizePolicy>
+                            <contextMenu>
+                                <ContextMenu>
+                                    <items>
+                                        <MenuItem fx:id="contextMenu" mnemonicParsing="false"
+                                                  onAction="#handleAddToGroup" text="Добавить в группу"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#handleDeleteContact"
+                                                  text="Удалить из группы"/>
+                                    </items>
+                                </ContextMenu>
+                            </contextMenu>
+                        </TableView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="298.0" prefWidth="364.0">
+                    <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Информация о контакте">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <GridPane layoutX="5.0" layoutY="104.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                                  AnchorPane.topAnchor="100.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1"/>
+                                <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="1"/>
+                                <Label fx:id="telephoneLabel" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="2"/>
+                                <Label fx:id="personEmailLabel" text="Label" GridPane.columnIndex="1"
+                                       GridPane.rowIndex="3"/>
+                                <Label text="Фамилия:"/>
+                                <Label text="Имя:" GridPane.rowIndex="1"/>
+                                <Label text="Номер телефона:" GridPane.rowIndex="2"/>
+                                <Label text="E-mail адрес:" GridPane.rowIndex="3"/>
+                            </children>
+                        </GridPane>
+                        <ButtonBar layoutX="-7.0" layoutY="258.0" prefHeight="40.0" prefWidth="200.0"
+                                   AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="159.0">
+                            <buttons>
+                                <Button mnemonicParsing="false" onAction="#handleNewPersonContact" text="New..."/>
+                                <Button mnemonicParsing="false" onAction="#handleEditPersonContact" text="Edit..."/>
+                                <Button mnemonicParsing="false" onAction="#handleDeleteContact" text="Delete"/>
+                            </buttons>
+                        </ButtonBar>
+                        <ComboBox fx:id="groupBox" layoutX="228.0" layoutY="10.0" prefHeight="25.0" prefWidth="175.0"
+                                  promptText="Фильтрация по группам" visibleRowCount="5"/>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
