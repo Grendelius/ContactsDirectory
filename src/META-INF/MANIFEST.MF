@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: C:\Users\ATolkachev\Desktop\Исходники\ContactsDir
+ ectory\src\contacts\MainApp.java
+Main-Class: contacts.MainApp
+
