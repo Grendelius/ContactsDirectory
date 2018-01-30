@@ -9,23 +9,23 @@ import javafx.stage.FileChooser;
 import java.io.File;
 
 /**
- * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»РµСЂ РєРѕСЂРЅРµРІРѕРіРѕ РјР°РєРµС‚Р°
+ * Класс - контроллер корневого макета
  */
 public class RootLayoutController {
-    // РЎСЃС‹Р»РєР° РЅР° РіР»Р°РІРЅРѕРµ РїСЂРёР»РѕР¶РµРЅРёРµ
+    // Ссылка на главное приложение
     private MainApp mainApp;
 
     /**
-     * Р’С‹Р·РѕРІ РіР»Р°РІРЅРѕРіРѕ РїСЂРёР»РѕР¶РµРЅРёСЏ
+     * Вызов главного приложения
      *
-     * @param mainApp - РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° MainApp
+     * @param mainApp - объект класса MainApp
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
     }
 
     /**
-     * РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ СЃРѕР·РґР°РЅРёСЏ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Открывает окно создания группы контактов
      */
     @FXML
     private void handleCreateContactsGroup() {
@@ -38,7 +38,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕРіРѕ РєРѕРЅС‚Р°РєС‚Р°
+     * Открывает окно создания нового контакта
      */
     @FXML
     private void handleCreateNewContact() {
@@ -51,7 +51,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ СѓРїСЂР°РІР»РµРЅРёСЏ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Открывает окно управления группами контактов
      */
     @FXML
     private void handleEditContactsGroups() {
@@ -59,7 +59,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РЎРѕР·РґР°РµС‚ РїСѓСЃС‚РѕР№ СЃРїСЂР°РІРѕС‡РЅРёРє
+     * Создает пустой справочник
      */
     @FXML
     private void handleNewDirectory() {
@@ -70,7 +70,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ РґР»СЏ РІС‹Р±РѕСЂР° С„Р°Р№Р»Р° СЃ РґР°РЅРЅС‹РјРё
+     * Открывает окно для выбора файла с данными
      */
     @FXML
     private void handleOpenDirectory() {
@@ -79,9 +79,9 @@ public class RootLayoutController {
                 "XM: files (*.xml)", "*.xml");
         fc.getExtensionFilters().add(filter);
 
-        fc.setTitle("Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» СЃ РєРѕРЅС‚Р°РєС‚Р°РјРё: ");
+        fc.setTitle("Выберите файл с контактами: ");
         File file1 = fc.showOpenDialog(mainApp.getPrimaryStage());
-        fc.setTitle("Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» СЃ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ: ");
+        fc.setTitle("Выберите файл с группами контактов: ");
         File file2 = fc.showOpenDialog(mainApp.getPrimaryStage());
 
         if (file1 != null && file2 != null) {
@@ -91,7 +91,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РЎРѕС…СЂР°РЅСЏРµС‚ РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»
+     * Сохраняет данные в файл
      */
     @FXML
     private void handleSaveDirectory() {
@@ -106,7 +106,7 @@ public class RootLayoutController {
     }
 
     /**
-     * РћС‚РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ РґР»СЏ РІС‹Р±РѕСЂР° С„Р°Р№Р»Р°/РєР°С‚Р°Р»РѕРіР° РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С…
+     * Открывает окно для выбора файла/каталога для сохранения данных
      */
     @FXML
     private void handleSaveAs() {
@@ -115,9 +115,9 @@ public class RootLayoutController {
                 "XM: files (*.xml)", "*.xml");
         fc.getExtensionFilters().add(filter);
 
-        fc.setTitle("РЈРєР°Р¶РёС‚Рµ С„Р°Р№Р» СЃ РєРѕРЅС‚Р°РєС‚Р°РјРё: ");
+        fc.setTitle("Укажите файл с контактами: ");
         File file1 = fc.showSaveDialog(mainApp.getPrimaryStage());
-        fc.setTitle("РЈРєР°Р¶РёС‚Рµ С„Р°Р№Р» СЃ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ: ");
+        fc.setTitle("Укажите файл с группами контактов: ");
         File file2 = fc.showSaveDialog(mainApp.getPrimaryStage());
 
         if (file1 != null && file2 != null) {
@@ -133,7 +133,7 @@ public class RootLayoutController {
     }
 
     /**
-     * Р—Р°РєСЂС‹РІР°РµС‚ РїСЂРёР»РѕР¶РµРЅРёРµ
+     * Закрывает приложение
      */
     @FXML
     private void handleExit() {

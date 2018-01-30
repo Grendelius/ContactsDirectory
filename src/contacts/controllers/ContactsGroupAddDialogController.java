@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
- * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»РµСЂ РѕРєРЅР° РґРѕР±Р°РІР»РµРЅРёСЏ/СЃРѕР·РґР°РЅРёСЏ РіСЂСѓРїРїС‹
+ * Класс - контроллер окна добавления/создания группы
  */
 public class ContactsGroupAddDialogController {
     @FXML
@@ -20,11 +20,11 @@ public class ContactsGroupAddDialogController {
     private boolean addClicked;
 
     /**
-     * РћРіСЂР°РЅРёС‡РёРІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІРІРµРґРµРЅС‹С… СЃРёРјРІРѕР»РѕРІ РІ СѓРєР°Р·Р°РЅРЅРѕРµ РїРѕР»Рµ
-     * РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ Р·Р°РґР°РЅРЅРѕР№ РґР»РёРЅРЅРѕР№ С‚РµРєСЃС‚Р°
+     * Ограничивает количество введеных символов в указанное поле
+     * в соответствии с заданной длинной текста
      *
-     * @param tf        - С‚РµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ
-     * @param maxLength - РїРѕРєР°Р·Р°С‚РµР»СЊ РјР°РєСЃРёРјР°Р»СЊРЅРѕР№ РґР»РёРЅС‹
+     * @param tf        - текстовое поле
+     * @param maxLength - показатель максимальной длины
      */
     private static void addTextLimiter(final TextField tf, final int maxLength) {
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
@@ -37,23 +37,23 @@ public class ContactsGroupAddDialogController {
 
     @FXML
     private void initialize() {
-        // РћРіСЂР°РЅРёС‡РµРЅРёРµ РЅР° РґР»РёРЅСѓ РІРІРѕРґРёРјРѕР№ СЃС‚СЂРѕРєРё РґР»СЏ РїРѕР»СЏ РІРІРѕРґР°
+        // Ограничение на длину вводимой строки для поля ввода
         addTextLimiter(groupName, 25);
     }
 
     /**
-     * РЈСЃС‚Р°РЅРѕРІРєР° РіР»Р°РІРЅРѕР№ СЃС†РµРЅР° РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР°
+     * Установка главной сцена для диалогового окна
      *
-     * @param stage - Stage РІ MainApp РєР»Р°СЃСЃРµ
+     * @param stage - Stage в MainApp классе
      */
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
     }
 
     /**
-     * РЎРІСЏР·СЊ СЃРѕ РіР»Р°РІРЅС‹Рј РєР»Р°СЃСЃРѕРј РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° РёРјРµСЋС‰РёС…СЃСЏ РіСЂСѓРїРї РІ РїСЂРёР»РѕР¶РµРЅРёРё
+     * Связь со главным классом для получения списка имеющихся групп в приложении
      *
-     * @param mainApp - РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° MainApp
+     * @param mainApp - объект класса MainApp
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -68,7 +68,7 @@ public class ContactsGroupAddDialogController {
     }
 
     /**
-     * Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕР№ РїСѓСЃС‚РѕР№ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Добавление новой пустой группы контактов
      */
     @FXML
     public void handleAdd() {
@@ -81,7 +81,7 @@ public class ContactsGroupAddDialogController {
     }
 
     /**
-     * Р—Р°РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ
+     * Закрывает окно
      */
     @FXML
     public void handleCancel() {
@@ -89,7 +89,7 @@ public class ContactsGroupAddDialogController {
     }
 
     /**
-     * РџСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚СЊ РІРІРµРґРµРЅРЅРѕРіРѕ РЅР°РёРјРµРЅРѕРІР°РЅРёСЏ РЅР° null Рё РЅР° РїРѕРІС‚РѕСЂСЏСЋС‰РёРµСЃСЏ Р·РЅР°С‡РµРЅРёРµ
+     * Проверяет корректность введенного наименования на null и на повторяющиеся значение
      *
      * @return true/false
      */
@@ -98,10 +98,10 @@ public class ContactsGroupAddDialogController {
         String inputedText = groupName.getText();
 
         if (inputedText == null || inputedText.length() == 0) {
-            errMsg += "РќР°РёРјРµРЅРѕРІР°РЅРёРµ РіСЂСѓРїРїС‹ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј\n";
+            errMsg += "Наименование группы не может быть пустым\n";
         } else if (mainApp.getGroupData().stream().anyMatch(contactsGroup ->
                 contactsGroup.getGroupLabel().equalsIgnoreCase(groupName.getText()))) {
-            errMsg += "Р“СЂСѓРїРїР° СЃ РЅР°РёРјРµРЅРѕРІР°РЅРёРµРј " + "\"" + inputedText + "\"" + " СѓР¶Рµ РµСЃС‚СЊ РІ СЃРїРёСЃРєРµ РіСЂСѓРїРї\n";
+            errMsg += "Группа с наименованием " + "\"" + inputedText + "\"" + " уже есть в списке групп\n";
         }
 
         if (errMsg.length() == 0) {
@@ -109,8 +109,8 @@ public class ContactsGroupAddDialogController {
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(dialogStage);
-            alert.setTitle("РќРµРєРѕСЂСЂРµРєС‚РЅС‹Рµ РґР°РЅРЅС‹Рµ");
-            alert.setHeaderText("РћР±СЂР°С‚РёС‚Рµ РІРЅРёРјР°РЅРёРµ РЅР° СЃР»РµРґСѓСЋС‰РµРµ:");
+            alert.setTitle("Некорректные данные");
+            alert.setHeaderText("Обратите внимание на следующее:");
             alert.setContentText(errMsg);
 
             alert.showAndWait();

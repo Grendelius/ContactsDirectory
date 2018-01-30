@@ -38,15 +38,15 @@ public class MainApp extends Application {
 
     public void addDefaultsGroups() {
         getGroupData().add(0, new PersonContactsGroup(" --- "));
-        getGroupData().add(1, new PersonContactsGroup("РЎРµРјСЊСЏ"));
-        getGroupData().add(2, new PersonContactsGroup("Р”СЂСѓР·СЊСЏ"));
-        getGroupData().add(3, new PersonContactsGroup("РљРѕР»Р»РµРіРё"));
+        getGroupData().add(1, new PersonContactsGroup("Семья"));
+        getGroupData().add(2, new PersonContactsGroup("Друзья"));
+        getGroupData().add(3, new PersonContactsGroup("Коллеги"));
     }
 
     /**
-     * Р’РѕР·РІСЂР°С‰Р°РµС‚ РґР°РЅРЅС‹Рµ Рѕ РєРѕРЅС‚Р°РєС‚Р°С… РІ РІРёРґРµ РЅР°Р±Р»СЋРґР°РµРјРѕРіРѕ СЃРїРёСЃРєР°
+     * Возвращает данные о контактах в виде наблюдаемого списка
      *
-     * @return - Р»РёСЃС‚ СЃ РѕР±СЉРµРєС‚Р°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ "contactData"
+     * @return - лист с объектами контактов "contactData"
      */
     public ObservableList<PersonContact> getContactData() {
         return contactData;
@@ -56,19 +56,19 @@ public class MainApp extends Application {
         return groupData;
     }
 
-    //TODO Р РµР°Р»РёР·РѕРІР°С‚СЊ РїРµСЂРµС…РІР°С‚ РёСЃРєР»СЋС‡РµРЅРёР№ РІ initRootLayout(РєР°СЃС‚РѕРјРЅС‹РјРё)
+    //TODO Реализовать перехват исключений в initRootLayout(кастомными)
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("РЎРїСЂР°РІРѕС‡РЅРёРє РєРѕРЅС‚Р°РєС‚РѕРІ");
+        this.primaryStage.setTitle("Справочник контактов");
         this.primaryStage.getIcons().add(new Image("resources/images/contacts.png"));
         initRootLayout();
         showPersonContactOverview();
     }
 
     /**
-     * РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєРѕСЂРЅРµРІРѕРіРѕ РјР°РєРµС‚Р°
+     * Инициализация корневого макета
      */
     private void initRootLayout() {
         try {
@@ -94,18 +94,18 @@ public class MainApp extends Application {
     }
 
     /**
-     * РџРѕРєР°Р· РІ РєРѕСЂРЅРµРІРѕРј РјР°РєРµС‚Рµ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РєРѕРЅС‚Р°РєС‚Р°С…
+     * Показ в корневом макете информации о контактах
      */
     private void showPersonContactOverview() {
         try {
-            // Р—Р°РіСЂСѓР·РєР° СЃРІРµРґРµРЅРёР№ Рѕ РєРѕРЅС‚Р°РєС‚Р°С…
+            // Загрузка сведений о контактах
             FXMLLoader loader = new FXMLLoader(getClass().getResource("views/PersonContactOverview.fxml"));
             AnchorPane contactOverview = loader.load();
 
-            // Р Р°Р·РјРµС‰РµРЅРёРµ СЃРІРµРґРµРЅРёР№ Рѕ РєРѕРЅС‚Р°РєС‚Р°С… РІ С†РµРЅС‚СЂ РєРѕСЂРЅРµРІРѕРіРѕ РјР°РєРµС‚Р° BorderPane.
+            // Размещение сведений о контактах в центр корневого макета BorderPane.
             rootLayout.setCenter(contactOverview);
 
-            // Р”РѕСЃС‚СѓРї РєРѕРЅС‚СЂРѕР»Р»РµСЂР° "PersonContact" Рє РіР»Р°РІРЅРѕРјСѓ РїСЂРёР»РѕР¶РµРЅРёСЋ
+            // Доступ контроллера "PersonContact" к главному приложению
             PersonContactOverviewController controller = loader.getController();
             controller.setMainApp(this);
         } catch (IOException e) {
@@ -115,30 +115,30 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’С‹Р·С‹РІР°РµС‚ РѕРєРЅРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ/СЃРѕР·РґР°РЅРёСЏ РєРѕРЅС‚Р°РєС‚Р°
+     * Вызывает окно редактирования/создания контакта
      *
-     * @param contact - РѕР±СЉРµРєС‚ РєРѕРЅС‚Р°РєС‚Р° РЅРѕРІС‹Р№/РёРјРµСЋС‰РёР№СЃСЏ
-     * @return boolean Р·РЅР°С‡РµРЅРёРµ РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё Ok(isOkClicked)
+     * @param contact - объект контакта новый/имеющийся
+     * @return boolean значение нажатия кнопки Ok(isOkClicked)
      */
     public boolean showPersonContactEditDialog(PersonContact contact) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("views/PersonContactEditDialog.fxml"));
             AnchorPane page = loader.load();
 
-            // РЎРѕР·РґР°РЅРёРµ РіР»Р°РІРЅРѕР№ СЃС†РµРЅС‹ РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР° Рё РїСЂРёСЃРІР°РёРІР°РЅРёРµ РµС‘ Рє РєРѕСЂРЅРµРІРѕРјСѓ РјР°РєРµС‚Сѓ BorderPane
+            // Создание главной сцены для диалогового окна и присваивание её к корневому макету BorderPane
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Р РµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ РєРѕРЅС‚Р°РєС‚Р°");
+            dialogStage.setTitle("Редактирование контакта");
             dialogStage.getIcons().add(new Image("resources/images/cont_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
             dialogStage.setScene(new Scene(page));
 
-            // РЎРІСЏР·С‹РІР°РЅРёРµ РєР»Р°СЃСЃР° - РєРѕРЅС‚СЂРѕР»Р»РµСЂР° СЃ СЃРѕР·РґР°РЅРЅРѕР№ dialogStage РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР°
+            // Связывание класса - контроллера с созданной dialogStage для диалогового окна
             PersonContactEditController controller = loader.getController();
             controller.setPrimaryStage(dialogStage);
             controller.setPersonContact(contact);
 
-            // РћС‚РѕР±СЂР°Р¶РµРЅРёРµ РѕРєРЅР° (РїРѕ-СѓРјРѕР»С‡Р°РЅРёСЋ) РґРѕ РµРіРѕ Р·Р°РєСЂС‹С‚РёСЏ(СЃРѕСЃС‚РѕСЏРЅРёСЏ РїРµСЂРµРјРµРЅРЅРѕР№ OkClicked)
+            // Отображение окна (по-умолчанию) до его закрытия(состояния переменной OkClicked)
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
@@ -150,10 +150,10 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’С‹Р·С‹РІР°РµС‚ РѕРєРЅРѕ РґРѕР±Р°РІР»РµРЅРёСЏ/СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕР№ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Вызывает окно добавления/создания новой группы контактов
      *
-     * @param contactsGroup - СЌРєР·РµРјРїР»СЏСЂ РєР»Р°СЃСЃР° PersonContactsGroup
-     * @return boolean Р·РЅР°С‡РµРЅРёРµ РЅР°Р¶Р°С‚РёСЏ РєРЅРѕРїРєРё Add(isAddClicked)
+     * @param contactsGroup - экземпляр класса PersonContactsGroup
+     * @return boolean значение нажатия кнопки Add(isAddClicked)
      */
     public boolean showContactsGroupAddDialog(PersonContactsGroup contactsGroup) {
         try {
@@ -161,7 +161,7 @@ public class MainApp extends Application {
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Р”РѕР±Р°РІР»РµРЅРёРµ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ");
+            dialogStage.setTitle("Добавление группы контактов");
             dialogStage.getIcons().add(new Image("resources/images/group_add.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -182,7 +182,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’С‹Р·С‹РІР°РµС‚ РѕРєРЅРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
+     * Вызывает окно редактирования групп контактов
      */
     public void showContactsGroupEditDialog() {
         try {
@@ -190,7 +190,7 @@ public class MainApp extends Application {
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("РЈРїСЂР°РІР»РµРЅРёРµ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ");
+            dialogStage.setTitle("Управление группами контактов");
             dialogStage.getIcons().add(new Image("resources/images/group_edit.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -208,9 +208,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’С‹Р·С‹РІР°РµС‚ РѕРєРЅРѕ РІС‹Р±РѕСЂР° РіСЂСѓРїРїС‹ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РєРѕРЅС‚Р°РєС‚Р°
+     * Вызывает окно выбора группы для добавления контакта
      *
-     * @return - РёРЅРґРµРєСЃ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹
+     * @return - индекс выбранной группы
      */
     public int showContactsToGroupAddingDialog() {
         try {
@@ -218,7 +218,7 @@ public class MainApp extends Application {
             AnchorPane page = loader.load();
 
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Р”РѕР±Р°РІР»РµРЅРёРµ РІ РіСЂСѓРїРїСѓ");
+            dialogStage.setTitle("Добавление в группу");
             dialogStage.getIcons().add(new Image("resources/images/add_to_group.png"));
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
@@ -239,7 +239,7 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’РѕР·РІСЂР°С‰Р°РµС‚ РіР»Р°РІРЅСѓСЋ СЃС†РµРЅСѓ
+     * Возвращает главную сцену
      *
      * @return primaryStage;
      */
@@ -248,9 +248,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Р’РѕР·РІСЂР°С‰Р°РµС‚ РїСѓС‚СЊ Рє РїРѕСЃР»РµРґРЅРµРјСѓ РѕС‚РєСЂС‹С‚РѕРјСѓ С„Р°Р№Р»Сѓ
+     * Возвращает путь к последнему открытому файлу
      *
-     * @return
+     * @return - fileType
      */
     public File getAppDataFilePath(String fileType) {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
@@ -264,27 +264,27 @@ public class MainApp extends Application {
     }
 
     /**
-     * РЈСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ СЃ СЃРѕС…СЂР°РЅРµРЅРЅС‹РјРё РґР°РЅРЅС‹РјРё.
+     * Устанавливает путь к файлу с сохраненными данными.
      *
-     * @param contactsFile - РєРѕРЅС‚Р°РєС‚С‹
-     * @param groupsFile   - РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
+     * @param contactsFile - контакты
+     * @param groupsFile   - группы контактов
      */
     public void setAppDataFilePath(File contactsFile, File groupsFile) {
         Preferences prefs = Preferences.userNodeForPackage(this.getClass());
         if (contactsFile != null && groupsFile != null) {
             prefs.put("fileContacts", contactsFile.getPath());
             prefs.put("fileGroups", groupsFile.getPath());
-            primaryStage.setTitle("РЎРїСЂР°РІРѕС‡РЅРёРє РєРѕРЅС‚Р°РєС‚РѕРІ - " + contactsFile.getName());
+            primaryStage.setTitle("Справочник контактов - " + contactsFile.getName());
         } else {
             prefs.remove("filePath");
-            primaryStage.setTitle("РЎРїСЂР°РІРѕС‡РЅРёРє РєРѕРЅС‚Р°РєС‚РѕРІ");
+            primaryStage.setTitle("Справочник контактов");
         }
     }
 
     /**
-     * РЎРѕС…СЂР°РЅСЏРµС‚ РґР°РЅРЅС‹Рµ Рѕ РєРѕРЅС‚Р°РєС‚Р°С… РІ С„Р°Р№Р».
+     * Сохраняет данные о контактах в файл.
      *
-     * @param contactsFile - С„Р°Р№Р» СЃ РєРѕРЅС‚Р°РєС‚Р°РјРё
+     * @param contactsFile - файл с контактами
      */
     public void saveContactsDataToFile(File contactsFile) {
         try {
@@ -298,18 +298,18 @@ public class MainApp extends Application {
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("РћС€РёР±РєР°");
-            alert.setHeaderText("РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ");
-            alert.setContentText("РќРµР»СЊР·СЏ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»: \n" + contactsFile.getPath());
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Невозможно сохранить данные");
+            alert.setContentText("Нельзя загрузить данные в файл: \n" + contactsFile.getPath());
 
             alert.showAndWait();
         }
     }
 
     /**
-     * РЎРѕС…СЂР°РЅСЏРµС‚ РґР°РЅРЅС‹Рµ Рѕ РіСЂСѓРїРїР°С… РІ С„Р°Р№Р».
+     * Сохраняет данные о группах в файл.
      *
-     * @param groupsFile - С„Р°Р№Р» СЃ РіСЂСѓРїРїР°РјРё
+     * @param groupsFile - файл с группами
      */
     public void saveGroupsDataToFile(File groupsFile) {
         try {
@@ -324,9 +324,9 @@ public class MainApp extends Application {
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("РћС€РёР±РєР°");
-            alert.setHeaderText("РќРµРІРѕР·РјРѕР¶РЅРѕ СЃРѕС…СЂР°РЅРёС‚СЊ РґР°РЅРЅС‹Рµ");
-            alert.setContentText("РќРµР»СЊР·СЏ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РІ С„Р°Р№Р»: \n" + groupsFile.getPath());
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Невозможно сохранить данные");
+            alert.setContentText("Нельзя загрузить данные в файл: \n" + groupsFile.getPath());
 
             alert.showAndWait();
         }
@@ -334,10 +334,10 @@ public class MainApp extends Application {
 
 
     /**
-     * Р—Р°РіСЂСѓР¶Р°РµС‚ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»РѕРІ
+     * Загружает данные из файлов
      *
-     * @param contactsFile - С„Р°Р№Р» СЃ РєРѕРЅС‚Р°РєС‚Р°РјРё
-     * @param groupsFile   - С„Р°Р№Р» СЃ РіСЂСѓРїРїР°РјРё РєРѕРЅС‚Р°РєС‚РѕРІ
+     * @param contactsFile - файл с контактами
+     * @param groupsFile   - файл с группами контактов
      */
     public void loadDataFromFiles(File contactsFile, File groupsFile) {
         try {
@@ -361,9 +361,9 @@ public class MainApp extends Application {
 
         } catch (NullPointerException | JAXBException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("РћС€РёР±РєР°");
-            alert.setHeaderText("РќРµРІРѕР·РјРѕР¶РЅРѕ РЅР°Р№С‚Рё С„Р°Р№Р» СЃ РґР°РЅРЅС‹РјРё");
-            alert.setContentText("РќРµР»СЊР·СЏ Р·Р°РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С„Р°Р№Р»Р°:\n" + contactsFile.getPath());
+            alert.setTitle("Ошибка");
+            alert.setHeaderText("Невозможно найти файл с данными");
+            alert.setContentText("Нельзя загрузить данные из файла:\n" + contactsFile.getPath());
 
             alert.showAndWait();
         }
