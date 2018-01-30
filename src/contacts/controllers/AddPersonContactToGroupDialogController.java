@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.util.Comparator;
 
 /**
- * Класс - контроллер окна добавления контакта в группу
+ * РљР»Р°СЃСЃ - РєРѕРЅС‚СЂРѕР»Р»РµСЂ РѕРєРЅР° РґРѕР±Р°РІР»РµРЅРёСЏ РєРѕРЅС‚Р°РєС‚Р° РІ РіСЂСѓРїРїСѓ
  */
 public class AddPersonContactToGroupDialogController {
     @FXML
@@ -29,10 +29,10 @@ public class AddPersonContactToGroupDialogController {
 
 
     /**
-     * Заполняет выпадающий список названиями групп контактов
+     * Р—Р°РїРѕР»РЅСЏРµС‚ РІС‹РїР°РґР°СЋС‰РёР№ СЃРїРёСЃРѕРє РЅР°Р·РІР°РЅРёСЏРјРё РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
      *
-     * @param param - визуальный список ячеек групп контактов
-     * @return новая ячейка - наименование группы контактов
+     * @param param - РІРёР·СѓР°Р»СЊРЅС‹Р№ СЃРїРёСЃРѕРє СЏС‡РµРµРє РіСЂСѓРїРї РєРѕРЅС‚Р°РєС‚РѕРІ
+     * @return РЅРѕРІР°СЏ СЏС‡РµР№РєР° - РЅР°РёРјРµРЅРѕРІР°РЅРёРµ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ
      */
     private static ListCell<PersonContactsGroup> call(ListView<PersonContactsGroup> param) {
         return new ListCell<PersonContactsGroup>() {
@@ -45,7 +45,7 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Инициализация элементов выпадающего списка, отключение кнопок при выборе общей группы контактов "---"
+     * РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СЌР»РµРјРµРЅС‚РѕРІ РІС‹РїР°РґР°СЋС‰РµРіРѕ СЃРїРёСЃРєР°, РѕС‚РєР»СЋС‡РµРЅРёРµ РєРЅРѕРїРѕРє РїСЂРё РІС‹Р±РѕСЂРµ РѕР±С‰РµР№ РіСЂСѓРїРїС‹ РєРѕРЅС‚Р°РєС‚РѕРІ "---"
      */
     @FXML
     private void initialize() {
@@ -56,7 +56,7 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Записывает индекс выбранной группы из общего списка
+     * Р—Р°РїРёСЃС‹РІР°РµС‚ РёРЅРґРµРєСЃ РІС‹Р±СЂР°РЅРЅРѕР№ РіСЂСѓРїРїС‹ РёР· РѕР±С‰РµРіРѕ СЃРїРёСЃРєР°
      */
     private void selectGroupFromList() {
         PersonContactsGroup selectedGroup = groupBox.getSelectionModel().getSelectedItem();
@@ -64,18 +64,18 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Установка главной сцена для диалогового окна
+     * РЈСЃС‚Р°РЅРѕРІРєР° РіР»Р°РІРЅРѕР№ СЃС†РµРЅР° РґР»СЏ РґРёР°Р»РѕРіРѕРІРѕРіРѕ РѕРєРЅР°
      *
-     * @param stage - Stage в MainApp классе
+     * @param stage - Stage РІ MainApp РєР»Р°СЃСЃРµ
      */
     public void setPrimaryStage(Stage stage) {
         this.dialogStage = stage;
     }
 
     /**
-     * Связь со главным классом для получения списка имеющихся групп в приложении
+     * РЎРІСЏР·СЊ СЃРѕ РіР»Р°РІРЅС‹Рј РєР»Р°СЃСЃРѕРј РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° РёРјРµСЋС‰РёС…СЃСЏ РіСЂСѓРїРї РІ РїСЂРёР»РѕР¶РµРЅРёРё
      *
-     * @param mainApp - объект класса MainApp
+     * @param mainApp - РѕР±СЉРµРєС‚ РєР»Р°СЃСЃР° MainApp
      */
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
@@ -83,7 +83,7 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Закрывает окно при нажатии на Add
+     * Р—Р°РєСЂС‹РІР°РµС‚ РѕРєРЅРѕ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° Add
      */
     @FXML
     private void handleAdd() {
@@ -91,7 +91,7 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Закрывае окно при нажатии на Close, сбрасывает индекс группы на "0"
+     * Р—Р°РєСЂС‹РІР°Рµ РѕРєРЅРѕ РїСЂРё РЅР°Р¶Р°С‚РёРё РЅР° Close, СЃР±СЂР°СЃС‹РІР°РµС‚ РёРЅРґРµРєСЃ РіСЂСѓРїРїС‹ РЅР° "0"
      */
     @FXML
     private void handleClose() {
