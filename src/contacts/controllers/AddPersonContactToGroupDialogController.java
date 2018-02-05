@@ -91,7 +91,7 @@ public class AddPersonContactToGroupDialogController {
     }
 
     /**
-     * Закрывае окно при нажатии на Close, сбрасывает индекс группы на "0"
+     * Закрывает окно при нажатии на Close, сбрасывает индекс группы на "0"
      */
     @FXML
     private void handleClose() {
