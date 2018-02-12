@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="200.0" minWidth="200.0" prefHeight="140.0" prefWidth="214.0"
             xmlns="http://javafx.com/javafx/9.0.1"
-            fx:controller="contacts.controllers.AddPersonContactToGroupDialogController">
+            fx:controller="common.controllers.AddPersonContactToGroupDialogController">
     <children>
         <ComboBox fx:id="groupBox" layoutX="32.0" layoutY="25.0" prefWidth="150.0"/>
         <Button fx:id="addBtn" layoutX="81.0" layoutY="66.0" mnemonicParsing="false" onAction="#handleAdd" text="Add"/>

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="181.0" prefWidth="385.0"
             xmlns="http://javafx.com/javafx/9.0.1"
-            fx:controller="contacts.controllers.ContactsGroupEditDialogController">
+            fx:controller="common.controllers.ContactsGroupEditDialogController">
     <children>
         <ComboBox fx:id="groupBox" editable="true" focusTraversable="false" layoutX="14.0" layoutY="26.0"
                   prefWidth="150.0" promptText="Выберите группу"/>

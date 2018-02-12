@@ -1,4 +1,4 @@
-package contacts.models;
+package common.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -25,13 +25,13 @@ public class PersonContact {
         contactId = IdGenerator.getInstance().getNextId();
     }
 
-    public PersonContact(String fname, String lname, String phone, String email) {
-        this.firstName = new SimpleStringProperty(fname);
-        this.lastName = new SimpleStringProperty(lname);
-        this.phoneNumber = new SimpleStringProperty(phone);
-        this.personEmail = new SimpleStringProperty(email);
-        contactId = IdGenerator.getInstance().getNextId();
-    }
+//    public PersonContact(String fname, String lname, String phone, String email) {
+//        this.firstName = new SimpleStringProperty(fname);
+//        this.lastName = new SimpleStringProperty(lname);
+//        this.phoneNumber = new SimpleStringProperty(phone);
+//        this.personEmail = new SimpleStringProperty(email);
+//        contactId = IdGenerator.getInstance().getNextId();
+//    }
 
     public String getFirstName() {
         return firstName.get();
@@ -91,7 +91,6 @@ public class PersonContact {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getFirstName(), getLastName(), getPhoneNumber(), getPersonEmail(), contactId);
     }
 }

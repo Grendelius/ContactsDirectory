@@ -43,7 +43,7 @@
                 <archive>
                     <manifest>
                         <addClasspath>true</addClasspath>
-                        <mainClass>contacts.MainApp.java</mainClass>
+                        <mainClass>common.MainApp.java</mainClass>
                     </manifest>
                 </archive>
                 </configuration>

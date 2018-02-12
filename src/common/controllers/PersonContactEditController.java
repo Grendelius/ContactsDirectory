@@ -1,7 +1,8 @@
-package contacts.controllers;
+package common.controllers;
 
-import contacts.models.EmailUtil;
-import contacts.models.PersonContact;
+import common.utils.EmailUtil;
+import common.models.PersonContact;
+import common.utils.PhoneNumberUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -48,7 +49,7 @@ public class PersonContactEditController {
 
         firstNameField.setText(personContact.getFirstName());
         lastNameField.setText(personContact.getLastName());
-        telNumField.setText(personContact.getPhoneNumber());
+        telNumField.setText(PhoneNumberUtil.format(personContact.getPhoneNumber()));
         emailField.setText(EmailUtil.format(personContact.getPersonEmail()));
         emailField.setPromptText("name@domain.com");
     }
@@ -96,14 +97,19 @@ public class PersonContactEditController {
         if (lastNameField.getText() == null || lastNameField.getLength() == 0)
             errMsg += "Некоретно введена фамилия контакта\n";
 
-        if (telNumField.getText() == null || telNumField.getLength() == 0)
-            errMsg += "Некорретно введен номер телефона\n";
+        if (telNumField.getText() == null || telNumField.getLength() == 0) {
+            errMsg += "Поле \"номер телефона\" не должно быть пустым\n";
+        } else {
+            if (!(PhoneNumberUtil.validate(telNumField.getText()))) {
+                errMsg += "Некорретный формат номера телефона.\n Используйте формат: 7(___)___-__-__\n";
+            }
+        }
 
         if (emailField.getText() == null || emailField.getLength() == 0) {
-            errMsg += "Поле e-mail не должно быть пустым";
+            errMsg += "Поле \"e-mail\" не должно быть пустым";
         } else {
             if (!(EmailUtil.validate(emailField.getText()))) {
-                errMsg += "Некорретный формат e-mail адреса.\nИспользуйте формат: name@domain.com\n";
+                errMsg += "Некорретный формат e-mail адреса.\n Используйте формат: name@domain.com\n";
             }
         }
 

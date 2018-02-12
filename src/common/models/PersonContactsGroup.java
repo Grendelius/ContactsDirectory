@@ -1,4 +1,4 @@
-package contacts.models;
+package common.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

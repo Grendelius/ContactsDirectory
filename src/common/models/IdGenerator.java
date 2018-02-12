@@ -1,4 +1,4 @@
-package contacts.models;
+package common.models;
 
 /**
  * Класс - генератор ID для контактов

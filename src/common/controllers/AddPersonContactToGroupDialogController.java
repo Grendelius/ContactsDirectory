@@ -1,7 +1,7 @@
-package contacts.controllers;
+package common.controllers;
 
-import contacts.MainApp;
-import contacts.models.PersonContactsGroup;
+import common.MainApp;
+import common.models.PersonContactsGroup;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

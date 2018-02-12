@@ -1,4 +1,4 @@
-package contacts.models;
+package common.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +21,4 @@ public class EmailUtil {
         }
         return emailStr;
     }
-
-
 }

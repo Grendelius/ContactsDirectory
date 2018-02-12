@@ -1,8 +1,8 @@
-package contacts.controllers;
+package common.controllers;
 
-import contacts.MainApp;
-import contacts.models.PersonContact;
-import contacts.models.PersonContactsGroup;
+import common.MainApp;
+import common.models.PersonContact;
+import common.models.PersonContactsGroup;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 

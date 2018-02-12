@@ -1,4 +1,4 @@
-package contacts.models;
+package common.models;
 
 
 import javax.xml.bind.annotation.XmlElement;

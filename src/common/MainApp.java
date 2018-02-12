@@ -1,7 +1,7 @@
-package contacts;
+package common;
 
-import contacts.controllers.*;
-import contacts.models.*;
+import common.controllers.*;
+import common.models.*;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,7 +59,7 @@ public class MainApp extends Application {
     //TODO Реализовать перехват исключений в initRootLayout(кастомными)
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Справочник контактов");
         this.primaryStage.getIcons().add(new Image("resources/images/contacts.png"));

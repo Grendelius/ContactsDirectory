@@ -1,9 +1,10 @@
-package contacts.controllers;
+package common.controllers;
 
-import contacts.MainApp;
-import contacts.models.EmailUtil;
-import contacts.models.PersonContact;
-import contacts.models.PersonContactsGroup;
+import common.MainApp;
+import common.utils.EmailUtil;
+import common.models.PersonContact;
+import common.models.PersonContactsGroup;
+import common.utils.PhoneNumberUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -89,7 +90,7 @@ public class PersonContactOverviewController {
         if (contact != null) {
             firstNameLabel.setText(contact.getFirstName());
             lastNameLabel.setText(contact.getLastName());
-            telephoneLabel.setText(contact.getPhoneNumber());
+            telephoneLabel.setText(PhoneNumberUtil.format(contact.getPhoneNumber()));
             personEmailLabel.setText(EmailUtil.format(contact.getPersonEmail()));
             // Вывод ID контакта в консоль, для теста
             System.out.println(contact.getId());
@@ -142,6 +143,7 @@ public class PersonContactOverviewController {
     @FXML
     public void handleDeleteContact() {
         int selectedIndex = personContactTable.getSelectionModel().getSelectedIndex();
+
         if (selectedIndex >= 0) {
             personContactTable.getItems().remove(selectedIndex);
         } else {
