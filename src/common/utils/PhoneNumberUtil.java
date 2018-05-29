@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Класс - утилита для проверки на валидность вводимого phoneNumber
+ * РЈС‚РёР»РёС‚Р° РґР»СЏ РІР°Р»РёРґР°С†РёРё phoneNumber
  */
 public class PhoneNumberUtil {
     private static final Pattern PHONE_NUMBER_PATTERN =
